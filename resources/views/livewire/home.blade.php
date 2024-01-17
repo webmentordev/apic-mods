@@ -106,5 +106,18 @@
                 </div>
             </div>
         </div>
-    </section>   
+    </section>
+
+    <section class="w-full px-4 py-[150px] bg-dark-light">
+        <h2 class="mb-12 bebas text-center text-7xl text-white" title="APIC PC Custom Builds">OUR CUSTOM PC BUILDS</h2>
+        <div class="flex flex-wrap">
+            @foreach($images->chunk(ceil(count($images) / 4)) as $columnImages)
+                <div class="w-full sm:w-1/2 md:w-1/4 lg:w-1/4 xl:w-1/4">
+                    @foreach($columnImages as $image)
+                        <img data-aos="fade-up" class="w-full mb-4 px-2 rounded-md hover:scale-110 transition-all lazyload" data-src="{{ asset('/storage/'.$image->image) }}" alt="Custom PC Build {{ $loop->index }}">
+                    @endforeach
+                </div>
+            @endforeach
+        </div>
+    </section>
 </main>
