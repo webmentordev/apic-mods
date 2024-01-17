@@ -8,6 +8,26 @@
     font-family: 'Poppins', sans-serif;
 }
 
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    @apply bg-dark;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    @apply bg-main;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-dark-light; 
+}
+
 html{
     scroll-behavior: smooth;
 }

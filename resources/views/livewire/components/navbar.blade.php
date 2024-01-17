@@ -6,7 +6,7 @@
         </a>
         <ul class="flex items-center font-semibold links">
             <a href="#" class="ml-9">Home</a>
-            <a href="#" class="ml-9">Builds</a>
+            <a href="{{ route('home') }}#builds" class="ml-9">Builds</a>
             <a href="#" class="ml-9">Contact</a>
             <a href="https://www.facebook.com/APIC.PaYFrog.Modmode" target="_blank" title="APIC Mods Facebook" class="ml-6">
                 <img width="35" src="https://api.iconify.design/ri:facebook-circle-fill.svg?color=%23316FF6" title="APIC Mods Facebook" alt="Facebook Logo">

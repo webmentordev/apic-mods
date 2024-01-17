@@ -40,7 +40,7 @@
                                 <tr class="odd:bg-gray-100">
                                     <td class="text-start p-2">
                                         <a href="{{ asset('/storage/'. $image->image) }}" target="_blank" class="w-fit">
-                                            <img width="40px" src="{{ asset('/storage/'. $image->image) }}" alt="Image">
+                                            <img width="40px" class="lazyload" data-src="{{ asset('/storage/'. $image->image) }}" alt="Image">
                                         </a>
                                     </td>
                                     <td class="text-start p-2"><form action="{{ route('gallery.status.update', $image->id) }}" method="post">

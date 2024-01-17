@@ -108,16 +108,29 @@
         </div>
     </section>
 
-    <section class="w-full px-4 py-[150px] bg-dark-light">
+    <section class="w-full px-4 py-[150px] bg-dark-light" id="builds">
         <h2 class="mb-12 bebas text-center text-7xl text-white" title="APIC PC Custom Builds">OUR CUSTOM PC BUILDS</h2>
-        <div class="flex flex-wrap">
-            @foreach($images->chunk(ceil(count($images) / 4)) as $columnImages)
+
+        <div class="flex flex-wrap" id="image-container">
+            @foreach($images->chunk(ceil(count($images) / 5)) as $index => $columnImages)
+                <div class="w-full sm:w-1/2 md:w-1/5 lg:w-1/5 xl:w-1/5">
+                    @foreach($columnImages as $imageIndex => $image)
+                    <img data-aos="fade-up" class="w-full mb-4 px-2 rounded-md hover:scale-110 transition-all lazyload" data-src="{{ asset('/storage/'.$image->image) }}" alt="Custom PC Build {{ $loop->index }}">
+                    @endforeach
+                </div>
+            @endforeach
+        </div>
+
+        {{-- <div class="flex flex-wrap">
+            @foreach($images->chunk(ceil(count($images) / 5)) as $columnImages)
                 <div class="w-full sm:w-1/2 md:w-1/4 lg:w-1/4 xl:w-1/4">
                     @foreach($columnImages as $image)
                         <img data-aos="fade-up" class="w-full mb-4 px-2 rounded-md hover:scale-110 transition-all lazyload" data-src="{{ asset('/storage/'.$image->image) }}" alt="Custom PC Build {{ $loop->index }}">
                     @endforeach
                 </div>
             @endforeach
-        </div>
+        </div> --}}
     </section>
+
+    <x-content-list />
 </main>

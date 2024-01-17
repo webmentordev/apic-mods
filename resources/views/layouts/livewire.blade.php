@@ -27,6 +27,7 @@
     <body class="font-sans antialiased">
         <livewire:components.navbar>
         {{ $slot }}
+        <x-footer />
         @livewireScripts
     </body>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
