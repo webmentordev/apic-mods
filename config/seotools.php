@@ -9,9 +9,8 @@ return [
          * The default configurations to be used by the meta generator.
          */
         'defaults'       => [
-            'title'        => "It's Over 9000!", // set false to total remove
-            'titleBefore'  => false, // Put defaults.title before page title, like 'It's Over 9000! - Dashboard'
-            'description'  => 'For those who helped create the Genki Dama', // set false to total remove
+            'title'        => "Erstellen Sie maßgeschneiderte PCs in Deutschland",
+            'description'  => 'Erstellen Sie erstklassige, hochmoderne Gaming-PCs mit individuell angefertigten Wasserkühlungsschleifen in Deutschland',
             'separator'    => ' - ',
             'keywords'     => [],
             'canonical'    => false, // Set to null or 'full' to use Url::full(), set to 'current' to use Url::current(), set false to total remove
@@ -36,8 +35,8 @@ return [
          * The default configurations to be used by the opengraph generator.
          */
         'defaults' => [
-            'title'       => 'Over 9000 Thousand!',
-            'description' => 'For those who helped create the Genki Dama',
+            'title'       => 'Erstellen Sie maßgeschneiderte PCs in Deutschland',
+            'description' => 'Erstellen Sie erstklassige, hochmoderne Gaming-PCs mit individuell angefertigten Wasserkühlungsschleifen in Deutschland',
             'url'         => false,
             'type'        => false,
             'site_name'   => false,
@@ -58,8 +57,8 @@ return [
          * The default configurations to be used by the json-ld generator.
          */
         'defaults' => [
-            'title'       => 'Over 9000 Thousand!', // set false to total remove
-            'description' => 'For those who helped create the Genki Dama', // set false to total remove
+            'title'       => 'Erstellen Sie maßgeschneiderte PCs in Deutschland', // set false to total remove
+            'description' => 'Erstellen Sie erstklassige, hochmoderne Gaming-PCs mit individuell angefertigten Wasserkühlungsschleifen in Deutschland', // set false to total remove
             'url'         => false, // Set to null or 'full' to use Url::full(), set to 'current' to use Url::current(), set false to total remove
             'type'        => 'WebPage',
             'images'      => [],

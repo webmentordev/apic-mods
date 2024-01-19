@@ -1,12 +1,21 @@
 <main class="w-full">
-    <header class="h-[900px] bg-cover bg-center px-4 w-full flex items-center justify-center" style="background-image: url({{ asset('images/header_banner.webp') }})">
-        <div class="w-full text-white">
-            <div class="max-w-6xl m-auto w-full text-white mb-8">
-                <h1 class="bebas text-white text-7xl text-center">Custom PC Builds</h1>
-                <p class="text-center text-lg">APIC offers 5 configurations optimized for ultimate performance and the best cost per frame. <br> Build your dream gaming pc from our Custom PC Builder</p>
-            </div>
-            <div class="max-w-7xl m-auto grid grid-cols-5 gap-3">
-                <div class="bg-dark-light h-full flex justify-between flex-col p-6 rounded-lg text-center transition-all hover:translate-y-6">
+    <header class="h-screen bg-cover bg-center relative px-4 w-full flex items-center justify-center" style="background-image: url({{ asset('images/header_apic.png') }})">
+        <div class="absolute top-0 left-0 w-full h-full bg-black/50 backdrop-blur-sm"></div>
+        <div class="w-full text-white relative z-10 max-w-6xl">
+            {{-- <img data-aos="fade-up" src="{{ asset('images/processor.webp') }}" alt="APIC Logo" class="m-auto max-w-[400px] w-full"> --}}
+            <h2 data-aos="fade-up" data-aos-duration="1000" class="font-bold text-7xl uppercase mb-4"><span class="text-4xl">Welcome to</span> <br> <span class="text-main">APICMODMODS</span></h2>
+            <p class="text-lg pl-5 border-l border-main py-4" data-aos="fade-up" data-aos-duration="1200">APIC Modmode crafts bespoke computing experiences, blending cutting-edge technology <br> with artistic design. Elevate your gaming or professional setup with our meticulously <br> tailored custom PC builds. At APIC Modmode, we redefine performance and <br> aesthetics, delivering a seamless fusion of power and style. Unleash your <br> imagination; let APIC Modmode bring your dream PC to life</p>
+            <a data-aos="fade-up" data-aos-duration="1500" href="https://www.facebook.com/APIC.PaYFrog.Modmode" target="_blank" title="APIC ModMode Facebook" class="mt-6 font-semibold  rounded-md inline-block bg-main text-dark py-3 px-4">Build Your PC</a>
+        </div>
+    </header>
+
+
+    <section class="w-full px-4 py-[150px] bg-center bg-cover bg-dark">
+        {{-- style="background-image: url({{ asset('images/header_banner.webp') }})" --}}
+        <div class="max-w-7xl m-auto py-5">
+            <h2 class="mb-12 bebas text-center text-7xl text-white">OUR CUSTOM PC BUILD PACKAGES</h2>
+            <div class="max-w-7xl m-auto grid grid-cols-5 gap-3 text-white">
+                <div data-aos="fade-up" class="bg-dark-light h-full flex justify-between flex-col p-6 rounded-lg text-center transition-all hover:translate-y-6">
                     <div>
                         <h3 class="bebas text-5xl mb-3 w-full border-b pb-2 border-white/10">APIC 1</h3>
                         <span class="text-white/80 font-semibold">STARTER</span>
@@ -15,7 +24,7 @@
                     <a href="#" class="bg-main p-3 px-6 w-full rounded-lg text-dark font-semibold">STARTING AT €200</a>
                 </div>
     
-                <div class="bg-dark-light h-full flex justify-between flex-col p-6 rounded-lg text-center transition-all hover:-translate-y-6">
+                <div data-aos="fade-up" class="bg-dark-light h-full flex justify-between flex-col p-6 rounded-lg text-center transition-all hover:-translate-y-6">
                     <div>
                         <h3 class="bebas text-5xl mb-3 w-full border-b pb-2 border-white/10">APIC 2</h3>
                         <span class="text-white/80 font-semibold">INTERMEDIATE</span>
@@ -24,7 +33,7 @@
                     <a href="#" class="bg-main p-3 px-6 w-full rounded-lg text-dark font-semibold">STARTING AT €200</a>
                 </div>
     
-                <div class="bg-dark-light h-full flex justify-between flex-col p-6 rounded-lg text-center transition-all hover:translate-y-6">
+                <div data-aos="fade-up" class="bg-dark-light h-full flex justify-between flex-col p-6 rounded-lg text-center transition-all hover:translate-y-6">
                     <div>
                         <h3 class="bebas text-5xl mb-3 w-full border-b pb-2 border-white/10">APIC 3</h3>
                         <span class="text-white/80 font-semibold">ADVANCED</span>
@@ -33,7 +42,7 @@
                     <a href="#" class="bg-main p-3 px-6 w-full rounded-lg text-dark font-semibold">STARTING AT €200</a>
                 </div>
     
-                <div class="bg-dark-light h-full flex justify-between flex-col p-6 rounded-lg text-center transition-all hover:-translate-y-6">
+                <div data-aos="fade-up" class="bg-dark-light h-full flex justify-between flex-col p-6 rounded-lg text-center transition-all hover:-translate-y-6">
                     <div>
                         <h3 class="bebas text-5xl mb-3 w-full border-b pb-2 border-white/10">APIC 4</h3>
                         <span class="text-white/80 font-semibold">PRO</span>
@@ -42,7 +51,7 @@
                     <a href="#" class="bg-main p-3 px-6 w-full rounded-lg text-dark font-semibold">STARTING AT €200</a>
                 </div>
     
-                <div class="bg-dark-light h-full flex justify-between flex-col p-6 rounded-lg text-center transition-all hover:-translate-y-6">
+                <div data-aos="fade-up" class="bg-dark-light h-full flex justify-between flex-col p-6 rounded-lg text-center transition-all hover:-translate-y-6">
                     <div>
                         <h3 class="bebas text-5xl mb-3 w-full border-b pb-2 border-white/10">APIC 5</h3>
                         <span class="text-white/80 font-semibold">ULTIMATE</span>
@@ -52,13 +61,13 @@
                 </div>
             </div>
         </div>
-    </header>
-    
+    </section>
+
     <section class="w-full px-4 py-[150px] bg-dark-light">
         <div class="max-w-6xl m-auto py-5">
             <h2 class="mb-12 bebas text-center text-7xl text-white">BEST VALUE CUSTOM GAMING PC</h2>
             <div class="grid grid-cols-2 gap-8" data-aos="fade-up">
-                <img src="{{ asset('images/games_grid-1.png') }}" title="Games Grid" alt="Games Grid">
+                <img class="rounded-lg" src="{{ asset('images/games_grid-1.png') }}" title="Games Grid" alt="Games Grid">
                 <div class="flex items-center">
                     <div class="px-4 py-4">
                         <h3 class="font-bold uppercase text-3xl mb-6 text-white">Highest FPS Per EURO 💸</h3>
@@ -76,7 +85,7 @@
                         <p class="text-white/80">Evert Gaming PC from APIC includes professional cable management and world-class customer support. We belive in quality and build PCs with love and care so that you have the best gaming experience ever.</p>
                     </div>
                 </div>
-                <img src="{{ asset('images/games_grid-2.png') }}" title="Games Grid" alt="Games Grid">
+                <img class="rounded-lg" src="{{ asset('images/games_grid-2.png') }}" title="Games Grid" alt="Games Grid">
             </div>
         </div>
     </section>
