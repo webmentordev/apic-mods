@@ -14,6 +14,32 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            screens: {
+                "1110px": {
+                    "max": "1110px"
+                },
+                "900px": {
+                    "max": "900px"
+                },
+                "890px": {
+                    "max": "890px"
+                },
+                "750px": {
+                    "max": "750px"
+                },
+                "650px": {
+                    "max": "650px"
+                },
+                "620px": {
+                    "max": "620px"
+                },
+                "530px": {
+                    "max": "530px"
+                },
+                "480px": {
+                    "max": "480px"
+                }
+            },
             colors: {
                 "main": "#BDDF41",
                 "dark": "#1D1D1D",

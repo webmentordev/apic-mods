@@ -1,4 +1,4 @@
-<footer class="bg-white px-4 relative">
+<footer class="bg-white px-4 relative" id="contact">
     <img src="{{ asset('images/blob.png') }}" alt="Blog" class="top-0 left-0 w-full absolute">
     <div class="max-w-7xl m-auto">
         <div class="text-center py-[80px]">

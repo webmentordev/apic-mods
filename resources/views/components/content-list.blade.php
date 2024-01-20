@@ -1,8 +1,8 @@
 <div class="bg-dark w-full">
     <div class="max-w-7xl m-auto py-12 px-4">
-        <h2 class="mb-12 bebas text-center text-7xl text-white" title="APIC PC Custom Builds">WHAT WE ARE KNOWN FOR</h2>
+        <h2 class="mb-12 bebas text-center text-7xl text-white 650px:text-4xl" title="APIC PC Custom Builds">WHAT WE ARE <span class="text-main bebas">KNOWN</span> FOR</h2>
         
-        <div class="grid grid-cols-3 gap-6">
+        <div class="grid grid-cols-3 gap-6 890px:grid-cols-2 530px:grid-cols-1">
             <div class="px-4 py-6 rounded-lg bg-dark border border-white/20 text-center">
                 <h3 class="bebas text-white mb-3 border-b border-white/10 pb-3 text-2xl">Huge Variety, Endless Possibilities</h3>
                 <p class="text-gray-100 mt-3">With hundreds of PC builds in our arsenal, you're spoiled for choice. From budget-friendly options to high-end powerhouses, we've got it all. Choose a pre-configured build or let our experts customize one just for you.</p>
