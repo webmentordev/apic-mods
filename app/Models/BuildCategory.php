@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Gallery;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class BuildCategory extends Model
 {
@@ -15,4 +16,8 @@ class BuildCategory extends Model
         'is_active',
         'is_featured'
     ];
+
+    public function images(){
+        return $this->hasMany(Gallery::class)->where('is_active', true);
+    }
 }

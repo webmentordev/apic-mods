@@ -17,9 +17,25 @@
                         <x-input-label for="image" :value="__('Uplaod Build Image')" />
                         <div class="flex items-center">
                             <div class="w-full mr-3">
-                                <x-text-input id="image" class="block mt-1 w-full border-none rounded-lg bg-gray-100 p-3" type="file" accept="image/*" name="image" :value="old('image')" required />
+                                <x-text-input id="image" class="block mt-1 w-full border-none rounded-lg bg-gray-100 py-2 px-3" type="file" accept="image/*" name="image" :value="old('image')" required />
                                 <x-input-error :messages="$errors->get('image')" class="mt-2" />
                             </div>
+
+                            <div class="w-full mr-3">
+                                <x-select id="category" class="block mt-1 w-full border-none rounded-lg bg-gray-100 p-3" 
+                                name="category" :value="old('category')" required :disabled="count($categories) == 0">
+                                    @if (count($categories))
+                                        <option value="" selected>-- Please select build category --</option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->title }}</option>
+                                        @endforeach
+                                    @else
+                                        <option value="" selected>Please create a build category first</option>
+                                    @endif
+                                </x-select>
+                                <x-input-error :messages="$errors->get('category')" class="mt-2" />
+                            </div>
+
                             <x-primary-button class="ms-4 py-3">
                                 {{ __('Upload') }}
                             </x-primary-button>
@@ -92,7 +108,7 @@
             document.addEventListener('DOMContentLoaded', function () {
                 var form = document.getElementById('form');
                 form.addEventListener('submit', function (event) {
-                    var isConfirmed = confirm('Are you sure you want to delete this form?');
+                    var isConfirmed = confirm('Are you sure you want to delete this build?');
                     if (!isConfirmed) {
                         event.preventDefault();
                     }

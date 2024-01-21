@@ -86,29 +86,24 @@
         </div>
     </section>
 
-    <section class="w-full px-4 py-[150px] bg-dark-light" id="builds">
-        <h2 class="mb-12 bebas text-center text-7xl text-white 650px:text-5xl" title="APIC PC Custom Builds">OUR <span class="text-main bebas">CUSTOM</span> PC BUILDS</h2>
-
-        <div class="flex flex-wrap" id="image-container">
-            @foreach($images->chunk(ceil(count($images) / 5)) as $index => $columnImages)
-                <div class="w-full sm:w-1/2 md:w-1/5 lg:w-1/5 xl:w-1/5">
-                    @foreach($columnImages as $imageIndex => $image)
-                    <img data-aos="fade-up" class="w-full mb-4 px-2 650px:px-0 rounded-md hover:scale-110 transition-all lazyload" data-src="{{ asset('/storage/'.$image->image) }}" alt="Custom PC Build {{ $loop->index }}">
-                    @endforeach
-                </div>
-            @endforeach
-        </div>
-
-        {{-- <div class="flex flex-wrap">
-            @foreach($images->chunk(ceil(count($images) / 5)) as $columnImages)
-                <div class="w-full sm:w-1/2 md:w-1/4 lg:w-1/4 xl:w-1/4">
-                    @foreach($columnImages as $image)
-                        <img data-aos="fade-up" class="w-full mb-4 px-2 rounded-md hover:scale-110 transition-all lazyload" data-src="{{ asset('/storage/'.$image->image) }}" alt="Custom PC Build {{ $loop->index }}">
-                    @endforeach
-                </div>
-            @endforeach
-        </div> --}}
-    </section>
+    @if (count($categories))
+        <section class="w-full px-4 py-[150px] bg-dark-light" id="builds">
+            <h2 class="mb-12 bebas text-center text-7xl text-white 650px:text-5xl" title="APIC PC Custom Builds">OUR <span class="text-main bebas">CUSTOM</span> PC BUILDS</h2>
+            <div class="m-auto max-w-6xl flex flex-col">
+                @foreach ($categories as $category)
+                    <div class="w-full text-center text-white">
+                        <h3 class="font-bold text-4xl mb-2">{{ $category->title }}</h3>
+                        <p class="max-w-3xl m-auto mb-2">{{ $category->detail }}</p>
+                        @foreach($category->images as $index => $image)
+                            <div class="grid grid-cols-4 gap-6 ">
+                                <img src="{{ asset('/storage/'. $image->image) }}" title="APIC ModMode PC Builds {{ $index }}" alt="APIC ModMode PC Builds {{ $index }}">
+                            </div>
+                        @endforeach
+                    </div>
+                @endforeach
+            </div>
+        </section>
+    @endif
 
     <x-content-list />
 </main>

@@ -11,6 +11,7 @@ class Gallery extends Model
 
     protected $fillable = [
         'image',
+        'build_category_id',
         'is_active'
     ];
 }
