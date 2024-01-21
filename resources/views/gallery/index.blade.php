@@ -32,8 +32,8 @@
                         <table class="w-full rounded-lg overflow-hidden">
                             <tr class="text-white bg-gray-900">
                                 <th class="text-start p-2">Image</th>
-                                <th class="text-start p-2">Status</th>
                                 <th class="text-start p-2">Uploaded</th>
+                                <th class="text-start p-2">Status</th>
                                 <th class="text-end p-2">Delete</th>
                             </tr>
                             @foreach ($images as $image)
@@ -43,26 +43,35 @@
                                             <img width="40px" class="lazyload" data-src="{{ asset('/storage/'. $image->image) }}" alt="Image">
                                         </a>
                                     </td>
+                                    <td class="text-start p-2">{{ $image->created_at->diffForHumans() }}</td>
                                     <td class="text-start p-2"><form action="{{ route('gallery.status.update', $image->id) }}" method="post">
                                         @csrf
                                         @method('PATCH')
                                         @if ($image->is_active)
                                             <x-table-button class="bg-green-700 py-3">
-                                                {{ __('Active') }}
+                                                <div class="flex items-center">
+                                                    <img src="https://api.iconify.design/ic:baseline-check-circle.svg?color=%23ffffff" alt="Active">
+                                                    <span class="ml-2">Active</span>
+                                                </div>
                                             </x-table-button>
                                         @else
                                             <x-table-button class="bg-red-700 py-3">
-                                                {{ __('InActive') }}
+                                                <div class="flex items-center">
+                                                    <img src="https://api.iconify.design/charm:circle-cross.svg?color=%23ffffff" alt="Deactive">
+                                                    <span class="ml-2">InActive</span>
+                                                </div>
                                             </x-table-button>
                                         @endif
                                     </form></td>
-                                    <td class="text-start p-2">{{ $image->created_at->diffForHumans() }}</td>
                                     <td class="text-end p-2">
                                         <form action="{{ route('gallery.delete', $image->id) }}" method="post" id="form">
                                             @csrf
                                             @method('DELETE')
-                                            <x-table-button class="bg-red-700 py-3">
-                                                {{ __('Delete') }}
+                                            <x-table-button class="bg-red-700 p-2 py-3">
+                                                <div class="flex items-center">
+                                                    <img src="https://api.iconify.design/charm:circle-cross.svg?color=%23ffffff" alt="Delete">
+                                                    <span class="ml-2">Delete</span>
+                                                </div>
                                             </x-table-button>
                                         </form>
                                     </td>

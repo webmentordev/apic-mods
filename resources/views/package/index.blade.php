@@ -18,8 +18,8 @@
                                 <th class="text-start p-2">Name</th>
                                 <th class="text-start p-2">Category</th>
                                 <th class="text-start p-2">Price</th>
-                                <th class="text-start p-2">Uploaded</th>
                                 <th class="text-start p-2">Description</th>
+                                <th class="text-start p-2">Created</th>
                                 <th class="text-start p-2">Status</th>
                                 <th class="text-start p-2">Delete</th>
                                 <th class="text-end p-2">Update</th>
@@ -37,7 +37,12 @@
                                     </td>
                                     <td class="text-start p-2" x-data="{ open: false }">
                                         <span class="underline text-indigo-600 cursor-pointer" x-on:click="open = !open">Open</span>
-                                        <p x-cloak x-transition x-show="open" class=" absolute p-6 rounded-lg bottom-4 left-4 shadow-2xl max-w-lg w-full">{{ $package->description }}</p>
+                                        <div x-cloak x-transition x-show="open" class="absolute p-6 rounded-lg bottom-4 left-4 shadow-2xl max-w-lg w-full">
+                                            <div class="relative w-full h-full">
+                                                <img class="absolute -top-5 -right-6 z-10 cursor-pointer" x-on:click="open = false" width="40" src="https://api.iconify.design/material-symbols-light:cancel.svg?color=%23e33535" alt="Close Icon">
+                                                <p>{{ $package->description }}</p>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td class="text-start p-2">{{ $package->created_at->diffForHumans() }}</td>
                                     <td class="text-start p-2"><form action="{{ route('package.status.update', $package->id) }}" method="post">
@@ -45,11 +50,15 @@
                                         @method('PATCH')
                                         @if ($package->is_active)
                                             <x-table-button class="bg-green-700 py-3">
-                                                {{ __('Active') }}
+                                                <img src="https://api.iconify.design/ic:baseline-check-circle.svg?color=%23ffffff" alt="Active">
+                                                <span class="ml-2">Active</span>
                                             </x-table-button>
                                         @else
                                             <x-table-button class="bg-red-700 py-3">
-                                                {{ __('InActive') }}
+                                                <div class="flex items-center">
+                                                    <img src="https://api.iconify.design/charm:circle-cross.svg?color=%23ffffff" alt="Deactive">
+                                                    <span class="ml-2">InActive</span>
+                                                </div>
                                             </x-table-button>
                                         @endif
                                     </form></td>
@@ -58,8 +67,11 @@
                                         <form action="{{ route('package.delete', $package->id) }}" method="post" id="form">
                                             @csrf
                                             @method('DELETE')
-                                            <x-table-button class="bg-red-700 py-3">
-                                                {{ __('Delete') }}
+                                            <x-table-button class="bg-red-700 p-2 py-3">
+                                                <div class="flex items-center">
+                                                    <img src="https://api.iconify.design/charm:circle-cross.svg?color=%23ffffff" alt="Delete">
+                                                    <span class="ml-2">Delete</span>
+                                                </div>
                                             </x-table-button>
                                         </form>
                                     </td>

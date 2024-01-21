@@ -7,11 +7,12 @@
                 {{-- <img src="{{ asset('images/apic_text.png') }}" class="max-w-[120px] w-full" alt="APIC ModMode Text Logo"> --}}
             </div>
             <p>Willkommen in der innovativen Welt von APIC ModMode, wo Innovation auf Individualisierung im Bereich des PC-Baus trifft. Als führender Anbieter für maßgeschneiderte PCs widmet sich APIC ModMode der Gestaltung persönlicher Computererlebnisse, die auf Ihre individuellen Vorlieben und Anforderungen zugeschnitten sind.</p>
-            <ul class="w-fit m-auto flex items-center font-semibold mt-6 links">
+            <ul class="w-fit m-auto flex items-center font-semibold mt-6 links mb-3 border-b border-gray-200 pb-4">
                 <a class="mx-7" href="{{ route('home') }}">Home</a>
                 <a class="mx-7" href="{{ route('home') }}#builds">Builds</a>
                 <a class="mx-7" href="{{ route('home') }}">Contact</a>
             </ul>
+            <span class="text-center flex items-center m-auto w-fit"><img class="mr-2" src="https://api.iconify.design/mingcute:mail-fill.svg?color=%231a1a1a" alt="Email Icon"> info@apic-modmode.de</span>
         </div>
         <p class="py-6 border-t border-gray-200 text-center">Copyrights &copy; {{ date('Y') }} All Reserved.</p>
     </div>

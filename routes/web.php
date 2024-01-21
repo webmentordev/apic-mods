@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BuildCategoryController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ProfileController;
@@ -26,11 +27,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/package', [PackageController::class, 'index'])->name('package');
     Route::get('/package/create', [PackageController::class, 'create'])->name('create.package');
     Route::post('/package', [PackageController::class, 'store'])->name('package.create');
-    Route::PATCH('/package/update-status/{package:id}', [PackageController::class, 'active'])->name('package.status.update');
-    Route::delete('/package/delete/{package:id}', [PackageController::class, 'delete'])->name('package.delete');
+    Route::PATCH('/package/update-status/{package}', [PackageController::class, 'active'])->name('package.status.update');
+    Route::delete('/package/delete/{package}', [PackageController::class, 'delete'])->name('package.delete');
+    Route::get('/package/update/{package}', [PackageController::class, 'update'])->name('update.package');
+    Route::patch('/package/update-package/{package}', [PackageController::class, 'update_package'])->name('package.update');
 
-    Route::get('/package/update/{package:id}', [PackageController::class, 'update'])->name('update.package');
-    Route::patch('/package/update-package/{package:id}', [PackageController::class, 'update_package'])->name('package.update');
+
+    Route::get('/build-category', [BuildCategoryController::class, 'index'])->name('category');
+    Route::post('/build-category', [BuildCategoryController::class, 'store']);
+    Route::PATCH('/build-category/update-status/{category}', [BuildCategoryController::class, 'active'])->name('category.status.update');
+    Route::PATCH('/build-category/update-featured/{category}', [BuildCategoryController::class, 'feature'])->name('category.featured.update');
+    Route::delete('/build-category/delete/{category}', [BuildCategoryController::class, 'delete'])->name('category.delete');
 
 });
 
