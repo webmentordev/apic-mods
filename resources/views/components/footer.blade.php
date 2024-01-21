@@ -3,8 +3,8 @@
     <div class="max-w-7xl m-auto">
         <div class="text-center py-[80px]">
             <div class="flex items-center m-auto w-fit mb-6">
-                <img src="{{ asset('images/apic_logo.png') }}" class="max-w-[90px] w-full" alt="APIC ModMode Logo" class="mr-4">
-                <img src="{{ asset('images/apic_text.png') }}" class="max-w-[120px] w-full" alt="APIC ModMode Text Logo">
+                <img src="https://cdn.discordapp.com/attachments/649926592700743681/1198592559744827482/Asset_33x.png" class="max-w-[300px] w-full" alt="APIC ModMode Logo" class="mr-4">
+                {{-- <img src="{{ asset('images/apic_text.png') }}" class="max-w-[120px] w-full" alt="APIC ModMode Text Logo"> --}}
             </div>
             <p>Willkommen in der innovativen Welt von APIC ModMode, wo Innovation auf Individualisierung im Bereich des PC-Baus trifft. Als führender Anbieter für maßgeschneiderte PCs widmet sich APIC ModMode der Gestaltung persönlicher Computererlebnisse, die auf Ihre individuellen Vorlieben und Anforderungen zugeschnitten sind.</p>
             <ul class="w-fit m-auto flex items-center font-semibold mt-6 links">

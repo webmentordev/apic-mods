@@ -47,11 +47,11 @@
                                         @csrf
                                         @method('PATCH')
                                         @if ($image->is_active)
-                                            <x-table-button class="ms-4 bg-green-700 py-3">
+                                            <x-table-button class="bg-green-700 py-3">
                                                 {{ __('Active') }}
                                             </x-table-button>
                                         @else
-                                            <x-table-button class="ms-4 bg-red-700 py-3">
+                                            <x-table-button class="bg-red-700 py-3">
                                                 {{ __('InActive') }}
                                             </x-table-button>
                                         @endif
@@ -61,7 +61,7 @@
                                         <form action="{{ route('gallery.delete', $image->id) }}" method="post" id="form">
                                             @csrf
                                             @method('DELETE')
-                                            <x-table-button class="ms-4 bg-red-700 py-3">
+                                            <x-table-button class="bg-red-700 py-3">
                                                 {{ __('Delete') }}
                                             </x-table-button>
                                         </form>

@@ -1,8 +1,8 @@
 <nav class="fixed top-3 left-0 w-full z-50 530px:px-4">
     <div class="max-w-7xl m-auto px-4 py-2 rounded-full flex items-center justify-between bg-white">
         <a href="{{ route('home') }}" class="flex items-center">
-            <img src="{{ asset('images/apic_logo.png') }}" title="Apic Mods Logo" alt="Apic Mods Logo" width="50px">
-            <img class="ml-3" src="{{ asset('images/apic_text.png') }}" title="Apic Mods Text" alt="Apic Mods Text" width="70px">
+            <img src="https://cdn.discordapp.com/attachments/649926592700743681/1198592559744827482/Asset_33x.png" title="Apic ModMode Logo" alt="Apic Mods Logo" width="150px">
+            {{-- <img class="ml-3" src="{{ asset('images/apic_text.png') }}" title="Apic Mods Text" alt="Apic Mods Text" width="70px"> --}}
         </a>
         <ul class="flex items-center font-semibold links 530px:hidden">
             <a href="#" class="ml-9">Home</a>

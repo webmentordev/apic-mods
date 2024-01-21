@@ -3,65 +3,34 @@
         <div class="absolute top-0 left-0 w-full h-full bg-black/50 backdrop-blur-sm"></div>
         <div class="w-full text-white relative z-10 max-w-6xl 620px:text-center">
             {{-- <img data-aos="fade-up" src="{{ asset('images/processor.webp') }}" alt="APIC Logo" class="m-auto max-w-[400px] w-full"> --}}
-            <h2 data-aos="fade-up" data-aos-duration="1000" class="font-bold text-7xl uppercase mb-4 620px:text-5xl 480px:text-4xl"><span class="text-4xl">Welcome to</span> <br> <span class="text-main">APICMODMODS</span></h2>
+            <h2 data-aos="fade-up" data-aos-duration="1000" class="font-bold text-7xl uppercase mb-4 620px:text-5xl 480px:text-4xl"><span class="text-4xl">Welcome to</span> <br> <span class="text-main">APICMODMODE</span></h2>
             <p class="text-lg 480px:text-base pl-5 max-w-3xl w-full border-l border-main py-4 620px:px-0 620px:border-none" data-aos="fade-up" data-aos-duration="1200">APIC Modmode crafts bespoke computing experiences, blending cutting-edge technology with artistic design. Elevate your gaming or professional setup with our meticulously tailored custom PC builds. At APIC Modmode, we redefine performance and aesthetics, delivering a seamless fusion of power and style. Unleash your imagination; let APIC Modmode bring your dream PC to life</p>
             <a data-aos="fade-up" data-aos-duration="1500" href="https://www.facebook.com/APIC.PaYFrog.Modmode" target="_blank" title="APIC ModMode Facebook" class="mt-6 font-semibold  rounded-md inline-block bg-main text-dark py-3 px-4">Build Your PC</a>
         </div>
     </header>
 
 
-    <section class="w-full px-4 py-[150px] bg-center bg-cover bg-dark">
-        {{-- style="background-image: url({{ asset('images/header_banner.webp') }})" --}}
-        <div class="max-w-7xl m-auto py-5">
-            <h2 class="mb-12 bebas text-center text-7xl text-white 530px:text-4xl">OUR <span class="text-main bebas">CUSTOM PC</span> BUILD PACKAGES</h2>
-            <div class="max-w-7xl m-auto grid grid-cols-5 gap-3 text-white 1110px:grid-cols-4 890px:grid-cols-3 750px:grid-cols-2 530px:grid-cols-1">
-                <div data-aos="fade-up" class="bg-dark-light h-full flex justify-between flex-col p-6 rounded-lg text-center transition-all hover:translate-y-6">
-                    <div>
-                        <h3 class="bebas text-5xl mb-3 w-full border-b pb-2 border-white/10">APIC 1</h3>
-                        <span class="text-white/80 font-semibold">STARTER</span>
-                        <p class="mb-12 mt-6">The perfect starter Gaming PC for first-time gamers. Optimized for multipliers online games. A great choice for budget gamers who are looking for a reliable gaming PC.</p>
-                    </div>
-                    <a href="#" class="bg-main p-3 px-6 w-full rounded-lg text-dark font-semibold">STARTING AT €200</a>
-                </div>
-    
-                <div data-aos="fade-up" class="bg-dark-light h-full flex justify-between flex-col p-6 rounded-lg text-center transition-all hover:-translate-y-6">
-                    <div>
-                        <h3 class="bebas text-5xl mb-3 w-full border-b pb-2 border-white/10">APIC 2</h3>
-                        <span class="text-white/80 font-semibold">INTERMEDIATE</span>
-                        <p class="mb-12 mt-6">Designed for professional gamers, competitive gaming for higher refresh rates. A Perfect who is looking to play competitive esports on the highest FPS.</p>
-                    </div>
-                    <a href="#" class="bg-main p-3 px-6 w-full rounded-lg text-dark font-semibold">STARTING AT €200</a>
-                </div>
-    
-                <div data-aos="fade-up" class="bg-dark-light h-full flex justify-between flex-col p-6 rounded-lg text-center transition-all hover:translate-y-6">
-                    <div>
-                        <h3 class="bebas text-5xl mb-3 w-full border-b pb-2 border-white/10">APIC 3</h3>
-                        <span class="text-white/80 font-semibold">ADVANCED</span>
-                        <p class="mb-12 mt-6">For streamers and content creators. Powerful enough to support high fps and resolution; ideal for content creation, programming, graphics design, and video editing.</p>
-                    </div>
-                    <a href="#" class="bg-main p-3 px-6 w-full rounded-lg text-dark font-semibold">STARTING AT €200</a>
-                </div>
-    
-                <div data-aos="fade-up" class="bg-dark-light h-full flex justify-between flex-col p-6 rounded-lg text-center transition-all hover:-translate-y-6">
-                    <div>
-                        <h3 class="bebas text-5xl mb-3 w-full border-b pb-2 border-white/10">APIC 4</h3>
-                        <span class="text-white/80 font-semibold">PRO</span>
-                        <p class="mb-12 mt-6">The finest gaming machine. For gamers who want extreme gaming and demand the best. Perfect for 3D rendering, modeling, animation and high resolution video editing.</p>
-                    </div>
-                    <a href="#" class="bg-main p-3 px-6 w-full rounded-lg text-dark font-semibold">STARTING AT €200</a>
-                </div>
-    
-                <div data-aos="fade-up" class="bg-dark-light h-full flex justify-between flex-col p-6 rounded-lg text-center transition-all hover:-translate-y-6">
-                    <div>
-                        <h3 class="bebas text-5xl mb-3 w-full border-b pb-2 border-white/10">APIC 5</h3>
-                        <span class="text-white/80 font-semibold">ULTIMATE</span>
-                        <p class="mb-12 mt-6">The ultimate and latest generation Gaming machine. Powered with intel 13Th Gen, Ryzen 7000 series, and RTX 4090. The fastest gaming PC in the market.</p>
-                    </div>
-                    <a href="#" class="bg-main p-3 px-6 w-full rounded-lg text-dark font-semibold">STARTING AT €200</a>
+    @if (count($packages))
+        <section class="w-full px-4 py-[150px] bg-center bg-cover bg-dark">
+            {{-- style="background-image: url({{ asset('images/header_banner.webp') }})" --}}
+            <div class="max-w-7xl m-auto py-5">
+                <h2 class="mb-12 bebas text-center text-7xl text-white 530px:text-4xl">OUR <span class="text-main bebas">CUSTOM PC</span> BUILD PACKAGES</h2>
+                <div class="max-w-7xl m-auto grid grid-cols-5 gap-3 text-white 1110px:grid-cols-4 890px:grid-cols-3 750px:grid-cols-2 530px:grid-cols-1">
+                    
+                    @foreach ($packages as $package)
+                        <div data-aos="fade-up" class="bg-dark-light h-full flex justify-between flex-col p-6 rounded-lg text-center transition-all hover:translate-y-6">
+                            <div>
+                                <h3 class="bebas text-5xl mb-3 w-full border-b pb-2 border-white/10">{{ $package->title }}</h3>
+                                <span class="text-white/80 font-semibold uppercase">{{ $package->category }}</span>
+                                <p class="mb-12 mt-6">{{ $package->description }}</p>
+                            </div>
+                            <a href="#" class="bg-main p-3 px-6 w-full rounded-lg text-dark font-semibold">STARTING AT €{{ number_format($package->price, 2) }}</a>
+                        </div>
+                    @endforeach
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
 
     <section class="w-full px-4 py-[150px] bg-dark-light">
         <div class="max-w-6xl m-auto py-5">
