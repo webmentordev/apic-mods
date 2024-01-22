@@ -36,6 +36,16 @@ html{
     display: none !important;
 }
 
+
+@font-face {
+    font-family: 'race_sport';
+    src: url('../fonts/race_sport.ttf');
+}
+
+.race_sport{
+    font-family: 'race_sport';
+}
+
 .bebas{
     font-family: 'Bebas Neue', sans-serif;
 }

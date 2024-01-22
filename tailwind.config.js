@@ -15,6 +15,9 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             screens: {
+                "1130px": {
+                    "max": "1130px"
+                },
                 "1110px": {
                     "max": "1110px"
                 },
@@ -24,6 +27,9 @@ export default {
                 "890px": {
                     "max": "890px"
                 },
+                "790px": {
+                    "max": "790px"
+                },
                 "750px": {
                     "max": "750px"
                 },
@@ -32,6 +38,9 @@ export default {
                 },
                 "620px": {
                     "max": "620px"
+                },
+                "580px": {
+                    "max": "580px"
                 },
                 "530px": {
                     "max": "530px"
