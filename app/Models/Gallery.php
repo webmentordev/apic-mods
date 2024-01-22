@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\BuildCategory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Gallery extends Model
 {
@@ -14,4 +15,8 @@ class Gallery extends Model
         'build_category_id',
         'is_active'
     ];
+
+    public function category(){
+        return $this->belongsTo(BuildCategory::class, 'build_category_id', 'id');
+    }
 }

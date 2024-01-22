@@ -11,21 +11,30 @@ class GalleryController extends Controller
 {
     public function index(){
         return view('gallery.index', [
-            'images' => Gallery::latest()->paginate(50),
+            'images' => Gallery::latest()->with(['category'])->paginate(50),
             'categories' => BuildCategory::latest()->get()
         ]);
     }
 
     public function store(Request $request){
         $this->validate($request, [
-            'image' => 'required|image|mimes:png,jpg,jpeg,webp,jfif',
+            'images' => 'required|array',
             'category' => 'required|numeric',
         ]);
-        Gallery::create([
-            'image' => $request->image->store('builds', 'public_disk'),
-            'build_category_id' => $request->category,
-        ]);
-        return back()->with('success', 'Build Image has been Added');
+        
+        $extensions = [ 'png', 'jpg', 'jpeg', 'webp', 'jfif'];
+        
+        foreach ($request->images as $item) {
+            if(in_array($item->getClientOriginalExtension(), $extensions)){
+                Gallery::create([
+                    'image' => $item->store('builds', 'public_disk'),
+                    'build_category_id' => $request->category,
+                ]);
+            }else{
+                return back()->with('failed', "Build Image ".$item->getClientOriginalName()." should be png,jpg,webp,jfif");
+            }
+        }
+        return back()->with('success', 'Build Images have been Added');
     }
 
 

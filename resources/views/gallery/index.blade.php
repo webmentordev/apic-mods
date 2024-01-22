@@ -12,12 +12,15 @@
                     @if (session('success'))
                         <x-success :text="session('success')" />
                     @endif
+                    @if (session('failed'))
+                        <x-failed :text="session('failed')" />
+                    @endif
                     <form action="{{ route('gallery') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <x-input-label for="image" :value="__('Uplaod Build Image')" />
+                        <x-input-label for="images" :value="__('Uplaod Build Image')" />
                         <div class="flex items-center">
                             <div class="w-full mr-3">
-                                <x-text-input id="image" class="block mt-1 w-full border-none rounded-lg bg-gray-100 py-2 px-3" type="file" accept="image/*" name="image" :value="old('image')" required />
+                                <x-text-input id="images" class="block mt-1 w-full border-none rounded-lg bg-gray-100 py-2 px-3" type="file" accept="image/*" multiple name="images[]" :value="old('image')" required />
                                 <x-input-error :messages="$errors->get('image')" class="mt-2" />
                             </div>
 
@@ -48,6 +51,7 @@
                         <table class="w-full rounded-lg overflow-hidden">
                             <tr class="text-white bg-gray-900">
                                 <th class="text-start p-2">Image</th>
+                                <th class="text-start p-2">Category</th>
                                 <th class="text-start p-2">Uploaded</th>
                                 <th class="text-start p-2">Status</th>
                                 <th class="text-end p-2">Delete</th>
@@ -59,6 +63,7 @@
                                             <img width="40px" class="lazyload" data-src="{{ asset('/storage/'. $image->image) }}" alt="Image">
                                         </a>
                                     </td>
+                                    <td class="text-start p-2">{{ $image->category->title }}</td>
                                     <td class="text-start p-2">{{ $image->created_at->diffForHumans() }}</td>
                                     <td class="text-start p-2"><form action="{{ route('gallery.status.update', $image->id) }}" method="post">
                                         @csrf
