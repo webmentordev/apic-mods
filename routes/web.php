@@ -7,6 +7,7 @@ use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ProcessorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SizeController;
+use App\Http\Controllers\SocketController;
 use App\Livewire\Home;
 use Illuminate\Support\Facades\Route;
 
@@ -59,6 +60,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/sizes', [SizeController::class, 'index'])->name('size');
     Route::post('/sizes', [SizeController::class, 'store']);
     Route::delete('/sizes/delete/{size}', [SizeController::class, 'delete'])->name('size.delete');
+
+    Route::get('/sockets', [SocketController::class, 'index'])->name('socket');
+    Route::post('/sockets', [SocketController::class, 'store']);
+    Route::delete('/sockets/delete/{socket}', [SocketController::class, 'delete'])->name('socket.delete');
 
 });
 
