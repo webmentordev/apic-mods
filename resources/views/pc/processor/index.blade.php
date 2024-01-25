@@ -84,5 +84,16 @@
                 @endif
             </div>
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var form = document.getElementById('form');
+                form.addEventListener('submit', function (event) {
+                    var isConfirmed = confirm('Are you sure you want to delete the processor?');
+                    if (!isConfirmed) {
+                        event.preventDefault();
+                    }
+                });
+            });
+        </script>
     </div>
 </x-app-layout>

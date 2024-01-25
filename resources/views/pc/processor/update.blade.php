@@ -48,7 +48,7 @@
                         </div>
 
                         <div class="w-full mb-3">
-                            <x-text-input id="image" class="block mt-1 w-full border-none rounded-lg bg-gray-100 py-2 px-3" type="file" accept="image/*" name="image" :value="old('image')" />
+                            <x-text-input id="image" class="block mt-1 w-full border-none rounded-lg bg-gray-100 py-2 px-3" type="file" accept="image/*" name="image" />
                             <x-input-error :messages="$errors->get('image')" class="mt-2" />
                         </div>
                         

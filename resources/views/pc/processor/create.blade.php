@@ -48,7 +48,7 @@
 
                         <div class="w-full mb-3">
                             <x-input-label for="name" :value="__('Processor image')" />
-                            <x-text-input id="image" class="block mt-1 w-full border-none rounded-lg bg-gray-100 p-3" type="file" accept="image/*" name="image" :value="old('image')" required />
+                            <x-text-input id="image" class="block mt-1 w-full border-none rounded-lg bg-gray-100 p-3" type="file" accept="image/*" name="image" required />
                             <x-input-error :messages="$errors->get('image')" class="mt-2" />
                         </div>
 

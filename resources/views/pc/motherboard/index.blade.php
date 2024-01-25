@@ -1,53 +1,30 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Motherboards') }}
-        </h2>
+        <div class="flex items-center justify-between">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Motherboards') }}
+            </h2>
+            <a href="{{ route('motherboard.create') }}" class="py-2 px-4 bg-black text-white font-semibold">Add motherboard</a>
+        </div>
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    @if (session('success'))
-                        <x-success :text="session('success')" />
-                    @endif
-                    @if (session('failed'))
-                        <x-failed :text="session('failed')" />
-                    @endif
-                    <form action="{{ route('motherboard') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <x-input-label for="images" :value="__('Upload Motherboard')" />
-                        <div class="flex items-center">
-                            <div class="w-full mr-3">
-                                <x-text-input id="name" class="block mt-1 w-full border-none rounded-lg bg-gray-100 py-2 px-3" type="text" placeholder="Motherboard Name" name="name" :value="old('name')" required />
-                                <x-input-error :messages="$errors->get('name')" class="mt-2" />
-                            </div>
-                            <div class="w-full mr-3">
-                                <x-text-input id="price" class="block mt-1 w-full border-none rounded-lg bg-gray-100 py-2 px-3" type="number" placeholder="Motherboard Price" step="0.01" name="price" :value="old('price')" required />
-                                <x-input-error :messages="$errors->get('price')" class="mt-2" />
-                            </div>
-                            <div class="w-full mr-3">
-                                <x-text-input id="image" class="block mt-1 w-full border-none rounded-lg bg-gray-100 py-2 px-3" type="file" accept="image/*" name="image" :value="old('image')" required />
-                                <x-input-error :messages="$errors->get('image')" class="mt-2" />
-                            </div>
-                            <x-primary-button class="ms-4 py-3">
-                                {{ __('Create') }}
-                            </x-primary-button>
-                        </div>
-                    </form>
-                </div>
-
+        <div class="max-w-[1366px] mx-auto sm:px-6">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                 @if (count($motherboards))
                     <div class="px-4">
                         <table class="w-full rounded-lg overflow-hidden text-sm">
                             <tr class="text-white bg-gray-900">
                                 <th class="text-start p-2">Image</th>
                                 <th class="text-start p-2">Name</th>
+                                <th class="text-start p-2">Socket</th>
+                                <th class="text-start p-2">Size</th>
+                                <th class="text-start p-2">Memory</th>
+                                <th class="text-start p-2">RAMs</th>
                                 <th class="text-start p-2">Price</th>
                                 <th class="text-start p-2">Created</th>
                                 <th class="text-start p-2">Status</th>
-                                <th class="text-start p-2">Delete</th>
+                                <th class="text-end p-2">Delete</th>
                                 <th class="text-end p-2">Edit</th>
                             </tr>
                             @foreach ($motherboards as $motherboard)
@@ -58,7 +35,11 @@
                                         </a>
                                     </td>
                                     <td class="text-start p-2">{{ $motherboard->name }}</td>
-                                    <td class="text-start p-2">€{{ number_format($motherboard->price, 2) }}</td>
+                                    <td class="text-start p-2">{{ $motherboard->socket->name }}</td>
+                                    <td class="text-start p-2">{{ $motherboard->size->size }}</td>
+                                    <td class="text-start p-2">{{ $motherboard->memory->name }}</td>
+                                    <td class="text-start p-2">{{ $motherboard->ram_slots }}</td>
+                                    <td class="text-start p-2 font-semibold">€{{ number_format($motherboard->price, 2) }}</td>
                                     <td class="text-start p-2">{{ $motherboard->created_at->diffForHumans() }}</td>
                                     <td class="text-start p-2"><form action="{{ route('motherboard.status.update', $motherboard->id) }}" method="post">
                                         @csrf
@@ -104,8 +85,21 @@
                             </div>
                         @endif
                     </div>
+                @else
+                    <p class="py-4 text-center">No motherboard(s) data exist in the system!</p>
                 @endif
             </div>
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var form = document.getElementById('form');
+                form.addEventListener('submit', function (event) {
+                    var isConfirmed = confirm('Are you sure you want to delete the motherboard?');
+                    if (!isConfirmed) {
+                        event.preventDefault();
+                    }
+                });
+            });
+        </script>
     </div>
 </x-app-layout>

@@ -53,6 +53,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/processor/update-processor/{processor}', [ProcessorController::class, 'update_processor'])->name('processor.update');
 
     Route::get('/motherboard', [MotherboardController::class, 'index'])->name('motherboard');
+    Route::get('/motherboard-create', [MotherboardController::class, 'create'])->name('motherboard.create');
     Route::post('/motherboard', [MotherboardController::class, 'store']);
     Route::PATCH('/motherboard/update-status/{motherboard}', [MotherboardController::class, 'active'])->name('motherboard.status.update');
     Route::delete('/motherboard/delete/{motherboard}', [MotherboardController::class, 'delete'])->name('motherboard.delete');
