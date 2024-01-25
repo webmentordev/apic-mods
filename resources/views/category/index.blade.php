@@ -34,7 +34,7 @@
 
                 @if (count($categories))
                     <div class="px-4 pb-6">
-                        <table class="w-full rounded-lg overflow-hidden">
+                        <table class="w-full rounded-lg overflow-hidden text-sm">
                             <tr class="text-white bg-gray-900">
                                 <th class="text-start p-2">Title</th>
                                 <th class="text-start p-2">Detail</th>

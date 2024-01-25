@@ -3,6 +3,7 @@
 use App\Http\Controllers\BuildCategoryController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\ProcessorController;
 use App\Http\Controllers\ProfileController;
 use App\Livewire\Home;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,13 @@ Route::middleware('auth')->group(function () {
     Route::PATCH('/build-category/update-status/{category}', [BuildCategoryController::class, 'active'])->name('category.status.update');
     Route::PATCH('/build-category/update-featured/{category}', [BuildCategoryController::class, 'feature'])->name('category.featured.update');
     Route::delete('/build-category/delete/{category}', [BuildCategoryController::class, 'delete'])->name('category.delete');
+
+    Route::get('/processor', [ProcessorController::class, 'index'])->name('processor');
+    Route::post('/processor', [ProcessorController::class, 'store']);
+    Route::PATCH('/processor/update-status/{processor}', [ProcessorController::class, 'active'])->name('processor.status.update');
+    Route::delete('/processor/delete/{processor}', [ProcessorController::class, 'delete'])->name('processor.delete');
+    Route::get('/processor/update/{processor}', [ProcessorController::class, 'update'])->name('update.processor');
+    Route::patch('/processor/update-processor/{processor}', [ProcessorController::class, 'update_processor'])->name('processor.update');
 
 });
 

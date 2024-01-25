@@ -46,6 +46,15 @@ html{
     font-family: 'race_sport';
 }
 
+@font-face {
+    font-family: 'beyonders';
+    src: url('../fonts/beyonders.otf');
+}
+
+.beyonders{
+    font-family: 'beyonders';
+}
+
 .bebas{
     font-family: 'Bebas Neue', sans-serif;
 }
@@ -55,7 +64,7 @@ html{
 }
 
 .links a{
-    @apply text-dark transition-all;
+    @apply text-dark text-[10px] transition-all beyonders;
 }
 
 .links a:hover{

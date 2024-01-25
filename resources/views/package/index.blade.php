@@ -13,7 +13,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                 @if (count($packages))
                     <div class="px-4">
-                        <table class="w-full rounded-lg overflow-hidden">
+                        <table class="w-full rounded-lg overflow-hidden text-sm">
                             <tr class="text-white bg-gray-900">
                                 <th class="text-start p-2">Name</th>
                                 <th class="text-start p-2">Category</th>
