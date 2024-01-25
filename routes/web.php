@@ -6,6 +6,7 @@ use App\Http\Controllers\MotherboardController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ProcessorController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SizeController;
 use App\Livewire\Home;
 use Illuminate\Support\Facades\Route;
 
@@ -54,6 +55,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/motherboard/delete/{motherboard}', [MotherboardController::class, 'delete'])->name('motherboard.delete');
     Route::get('/motherboard/update/{motherboard}', [MotherboardController::class, 'update'])->name('update.motherboard');
     Route::patch('/motherboard/update-motherboard/{motherboard}', [MotherboardController::class, 'update_motherboard'])->name('motherboard.update');
+
+    Route::get('/sizes', [SizeController::class, 'index'])->name('size');
+    Route::post('/sizes', [SizeController::class, 'store']);
+    Route::delete('/sizes/delete/{size}', [SizeController::class, 'delete'])->name('size.delete');
 
 });
 
