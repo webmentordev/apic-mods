@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Socket;
 use App\Models\Processor;
+use App\Models\MemoryType;
+use App\Models\Size;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -10,7 +13,13 @@ class ProcessorController extends Controller
 {
     public function index(){
         return view('pc.processor.index', [
-            'processors' => Processor::latest()->paginate(50)
+            'processors' => Processor::latest()->with(['socket'])->paginate(50)
+        ]);
+    }
+
+    public function create(){
+        return view('pc.processor.create', [
+            'sockets' => Socket::latest()->get()
         ]);
     }
 
@@ -19,11 +28,13 @@ class ProcessorController extends Controller
             'image' => 'required|image|mimes:png,jpg,webp,jpeg',
             'name' => 'required|string',
             'price' => 'required|numeric|min:1',
+            'socket' => 'required|numeric'
         ]);
         Processor::create([
             'image' => $request->image->store('processors', 'public_disk'),
             'name' => $request->name,
             'price' => $request->price,
+            'socket_id' => $request->socket
         ]);
         return back()->with('success', 'Processor have been Added');
     }
@@ -43,7 +54,8 @@ class ProcessorController extends Controller
 
     public function update(Processor $processor){
         return view('pc.processor.update', [
-            'processor' => $processor
+            'processor' => $processor,
+            'sockets' => Socket::latest()->get()
         ]);
     }
 
@@ -51,7 +63,8 @@ class ProcessorController extends Controller
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'price' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:png,jpg,webp,jpeg'
+            'image' => 'nullable|image|mimes:png,jpg,webp,jpeg',
+            'socket' => 'required|numeric',
         ]);
         $image = null;
         if($request->hasFile('image')){
@@ -61,6 +74,7 @@ class ProcessorController extends Controller
         $processor->update(array_filter([
             'name' => $request->name,
             'price' => $request->price,
+            'socket_id' => $request->socket,
             'image' => $image
         ]));
         return back()->with('success', 'Processor info has been updated!');

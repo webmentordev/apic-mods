@@ -45,6 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/build-category/delete/{category}', [BuildCategoryController::class, 'delete'])->name('category.delete');
 
     Route::get('/processor', [ProcessorController::class, 'index'])->name('processor');
+    Route::get('/processor-create', [ProcessorController::class, 'create'])->name('processor.create');
     Route::post('/processor', [ProcessorController::class, 'store']);
     Route::PATCH('/processor/update-status/{processor}', [ProcessorController::class, 'active'])->name('processor.status.update');
     Route::delete('/processor/delete/{processor}', [ProcessorController::class, 'delete'])->name('processor.delete');

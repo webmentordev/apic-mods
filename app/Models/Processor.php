@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Socket;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Processor extends Model
 {
@@ -13,6 +14,11 @@ class Processor extends Model
         'name',
         'price',
         'image',
+        'socket_id',
         'is_active'
     ];
+
+    public function socket(){
+        return $this->belongsTo(Socket::class);
+    }
 }

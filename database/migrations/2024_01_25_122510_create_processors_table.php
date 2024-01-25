@@ -16,6 +16,7 @@ return new class extends Migration
             $table->text('name');
             $table->decimal('price', 10,2);
             $table->string('image');
+            $table->foreignId('socket_id')->constrained()->onDelete('cascade');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
