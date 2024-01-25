@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BuildCategoryController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\MemoryTypeController;
 use App\Http\Controllers\MotherboardController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ProcessorController;
@@ -64,6 +65,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/sockets', [SocketController::class, 'index'])->name('socket');
     Route::post('/sockets', [SocketController::class, 'store']);
     Route::delete('/sockets/delete/{socket}', [SocketController::class, 'delete'])->name('socket.delete');
+
+    Route::get('/memory-type', [MemoryTypeController::class, 'index'])->name('memory.type');
+    Route::post('/memory-type', [MemoryTypeController::class, 'store']);
+    Route::delete('/memory-type/delete/{memory-type}', [MemoryTypeController::class, 'delete'])->name('memory.type.delete');
 
 });
 
