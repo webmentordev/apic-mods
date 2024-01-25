@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BuildCategoryController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\MotherboardController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ProcessorController;
 use App\Http\Controllers\ProfileController;
@@ -46,6 +47,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/processor/delete/{processor}', [ProcessorController::class, 'delete'])->name('processor.delete');
     Route::get('/processor/update/{processor}', [ProcessorController::class, 'update'])->name('update.processor');
     Route::patch('/processor/update-processor/{processor}', [ProcessorController::class, 'update_processor'])->name('processor.update');
+
+    Route::get('/motherboard', [MotherboardController::class, 'index'])->name('motherboard');
+    Route::post('/motherboard', [MotherboardController::class, 'store']);
+    Route::PATCH('/motherboard/update-status/{motherboard}', [MotherboardController::class, 'active'])->name('motherboard.status.update');
+    Route::delete('/motherboard/delete/{motherboard}', [MotherboardController::class, 'delete'])->name('motherboard.delete');
+    Route::get('/motherboard/update/{motherboard}', [MotherboardController::class, 'update'])->name('update.motherboard');
+    Route::patch('/motherboard/update-motherboard/{motherboard}', [MotherboardController::class, 'update_motherboard'])->name('motherboard.update');
 
 });
 
