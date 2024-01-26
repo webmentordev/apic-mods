@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BuildCategoryController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\MemoryController;
 use App\Http\Controllers\MemoryTypeController;
 use App\Http\Controllers\MotherboardController;
 use App\Http\Controllers\PackageController;
@@ -71,6 +72,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/memory-type', [MemoryTypeController::class, 'index'])->name('memory.type');
     Route::post('/memory-type', [MemoryTypeController::class, 'store']);
     Route::delete('/memory-type/delete/{memory-type}', [MemoryTypeController::class, 'delete'])->name('memory.type.delete');
+
+
+    Route::get('/memory', [MemoryController::class, 'index'])->name('memory');
+    Route::get('/memory/create', [MemoryController::class, 'create'])->name('memory.create');
+    Route::post('/memory', [MemoryController::class, 'store']);
+    Route::delete('/memory/delete/{memory}', [MemoryController::class, 'delete'])->name('memory.delete');
+    Route::get('/memory/update/{memory}', [MemoryController::class, 'update'])->name('update.memory');
+    Route::patch('/memory/update/{memory}', [MemoryController::class, 'update_memory'])->name('memory.update');
 
 });
 

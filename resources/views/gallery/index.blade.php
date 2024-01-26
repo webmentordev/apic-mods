@@ -106,6 +106,8 @@
                             </div>
                         @endif
                     </div>
+                @else
+                    <p class="py-4 text-center">Builds data does not exist!</p>
                 @endif
             </div>
         </div>
