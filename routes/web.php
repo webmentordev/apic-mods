@@ -10,6 +10,7 @@ use App\Http\Controllers\ProcessorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\SocketController;
+use App\Http\Controllers\SsdController;
 use App\Livewire\Home;
 use Illuminate\Support\Facades\Route;
 
@@ -80,6 +81,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/memory/delete/{memory}', [MemoryController::class, 'delete'])->name('memory.delete');
     Route::get('/memory/update/{memory}', [MemoryController::class, 'update'])->name('update.memory');
     Route::patch('/memory/update/{memory}', [MemoryController::class, 'update_memory'])->name('memory.update');
+
+    Route::get('/ssd', [SsdController::class, 'index'])->name('ssd');
+    Route::get('/ssd/create', [SsdController::class, 'create'])->name('ssd.create');
+    Route::post('/ssd', [SsdController::class, 'store']);
+    Route::PATCH('/ssd/update/status/{ssd}', [SsdController::class, 'active'])->name('ssd.status.update');
+    Route::delete('/ssd/delete/{ssd}', [SsdController::class, 'delete'])->name('ssd.delete');
+    Route::get('/ssd/update/{ssd}', [SsdController::class, 'update'])->name('update.ssd');
+    Route::patch('/ssd/update/{ssd}', [SsdController::class, 'update_ssd'])->name('ssd.update');
 
 });
 

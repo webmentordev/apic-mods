@@ -9,7 +9,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-[95%] w-full mx-auto sm:px-6">
+        <div class="max-w-[98%] w-full mx-auto sm:px-6">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                 @if (count($memories))
                     <div class="px-4">
@@ -69,7 +69,7 @@
             document.addEventListener('DOMContentLoaded', function () {
                 var form = document.getElementById('form');
                 form.addEventListener('submit', function (event) {
-                    var isConfirmed = confirm('Are you sure you want to delete this build?');
+                    var isConfirmed = confirm('Are you sure you want to delete this memory?');
                     if (!isConfirmed) {
                         event.preventDefault();
                     }
