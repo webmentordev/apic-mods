@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('gpus', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('power');
             $table->decimal('price', 10, 2);
             $table->string('image');
             $table->boolean('is_active')->default(true);

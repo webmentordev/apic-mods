@@ -31,6 +31,12 @@
                         </div>
 
                         <div class="w-full mb-3">
+                            <x-input-label for="power" :value="__('GPU power (minimum PSU power)')" />
+                            <x-text-input id="power" class="block mt-1 w-full border-none rounded-lg bg-gray-100 p-3" type="number" name="power" value="{{ old('power') }}" required />
+                            <x-input-error :messages="$errors->get('power')" class="mt-2" />
+                        </div>
+
+                        <div class="w-full mb-3">
                             <x-input-label for="image" :value="__('GPU Image')" />
                             <x-text-input id="image" class="block mt-1 w-full border-none rounded-lg bg-gray-100 py-2 px-3" type="file" accept="image/*" name="image" required />
                             <x-input-error :messages="$errors->get('image')" class="mt-2" />

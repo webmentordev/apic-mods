@@ -22,11 +22,13 @@ class GpuController extends Controller
         $this->validate($request, [
             'name' => 'required|string|max:255|unique:gpus,name',
             'price' => 'required|numeric|min:1',
+            'power' => 'required|numeric|min:1',
             'image' => 'required|image|mimes:png,jpg,webp,jpeg'
         ]);
         GPU::create([
             'name' => $request->name,
             'price' => $request->price,
+            'power' => $request->power,
             'image' => $request->image->store('gpus', 'public_disk')
         ]);
         return back()->with('success', 'GPU has been Added');
@@ -53,7 +55,8 @@ class GpuController extends Controller
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'price' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:png,jpg,webp,jpeg'
+            'image' => 'nullable|image|mimes:png,jpg,webp,jpeg',
+            'power' => 'required|numeric'
         ]);
         $image = null;
         if($request->hasFile('image')){
@@ -63,6 +66,7 @@ class GpuController extends Controller
         $gpu->update(array_filter([
             'name' => $request->name,
             'price' => $request->price,
+            'power' => $request->power,
             'image' => $image
         ]));
         return back()->with('success', 'GPU info has been updated!');

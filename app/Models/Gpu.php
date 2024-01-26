@@ -11,6 +11,7 @@ class Gpu extends Model
 
     protected $fillable = [
         'name',
+        'power',
         'price',
         'image',
         'is_active'

@@ -20,6 +20,7 @@
                             <tr class="text-white bg-gray-900">
                                 <th class="text-start p-2">Image</th>
                                 <th class="text-start p-2">Name</th>
+                                <th class="text-start p-2">power</th>
                                 <th class="text-start p-2">Price</th>
                                 <th class="text-start p-2">Added</th>
                                 <th class="text-start p-2">Status</th>
@@ -34,6 +35,7 @@
                                         </a>
                                     </td>
                                     <td class="text-start p-2">{{ $item->name }}</td>
+                                    <td class="text-start p-2">{{ $item->power }} Watt</td>
                                     <td class="text-start p-2 font-semibold">€{{ number_format($item->price, 2) }}</td>
                                     <td class="text-start p-2">{{ $item->created_at->diffForHumans() }}</td>
                                     <td class="text-start p-2"><form action="{{ route('gpu.status.update', $item->id) }}" method="post">
