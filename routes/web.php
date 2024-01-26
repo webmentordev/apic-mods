@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BuildCategoryController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\GpuController;
 use App\Http\Controllers\MemoryController;
 use App\Http\Controllers\MemoryTypeController;
 use App\Http\Controllers\MotherboardController;
@@ -99,6 +100,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/nvme/delete/{nvme}', [NvmeController::class, 'delete'])->name('nvme.delete');
     Route::get('/nvme/update/{nvme}', [NvmeController::class, 'update'])->name('update.nvme');
     Route::patch('/nvme/update/{nvme}', [NvmeController::class, 'update_nvme'])->name('nvme.update');
+
+    Route::get('/gpu', [GpuController::class, 'index'])->name('gpu');
+    Route::get('/gpu/create', [GpuController::class, 'create'])->name('gpu.create');
+    Route::post('/gpu', [GpuController::class, 'store']);
+    Route::PATCH('/gpu/update/status/{gpu}', [GpuController::class, 'active'])->name('gpu.status.update');
+    Route::delete('/gpu/delete/{gpu}', [GpuController::class, 'delete'])->name('gpu.delete');
+    Route::get('/gpu/update/{gpu}', [GpuController::class, 'update'])->name('update.gpu');
+    Route::patch('/gpu/update/{gpu}', [GpuController::class, 'update_gpu'])->name('gpu.update');
 
 });
 
