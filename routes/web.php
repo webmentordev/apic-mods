@@ -5,6 +5,7 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\MemoryController;
 use App\Http\Controllers\MemoryTypeController;
 use App\Http\Controllers\MotherboardController;
+use App\Http\Controllers\NvmeController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ProcessorController;
 use App\Http\Controllers\ProfileController;
@@ -89,6 +90,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/ssd/delete/{ssd}', [SsdController::class, 'delete'])->name('ssd.delete');
     Route::get('/ssd/update/{ssd}', [SsdController::class, 'update'])->name('update.ssd');
     Route::patch('/ssd/update/{ssd}', [SsdController::class, 'update_ssd'])->name('ssd.update');
+
+
+    Route::get('/nvme', [NvmeController::class, 'index'])->name('nvme');
+    Route::get('/nvme/create', [NvmeController::class, 'create'])->name('nvme.create');
+    Route::post('/nvme', [NvmeController::class, 'store']);
+    Route::PATCH('/nvme/update/status/{nvme}', [NvmeController::class, 'active'])->name('nvme.status.update');
+    Route::delete('/nvme/delete/{nvme}', [NvmeController::class, 'delete'])->name('nvme.delete');
+    Route::get('/nvme/update/{nvme}', [NvmeController::class, 'update'])->name('update.nvme');
+    Route::patch('/nvme/update/{nvme}', [NvmeController::class, 'update_nvme'])->name('nvme.update');
 
 });
 
