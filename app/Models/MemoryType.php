@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Motherboard;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class MemoryType extends Model
 {
@@ -12,4 +13,8 @@ class MemoryType extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function motherboards(){
+        return $this->hasMany(Motherboard::class);
+    }
 }

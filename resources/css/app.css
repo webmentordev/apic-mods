@@ -38,12 +38,20 @@ html{
 
 
 @font-face {
-    font-family: 'race_sport';
-    src: url('../fonts/race_sport.ttf');
+    font-family: 'lemon_medium';
+    src: url('../fonts/lemon_milk_medium.otf');
+}
+@font-face {
+    font-family: 'lemon_bold';
+    src: url('../fonts/lemon_milk_bold.otf');
 }
 
-.race_sport{
-    font-family: 'race_sport';
+.lemon_m{
+    font-family: 'lemon_medium';
+}
+
+.lemon_b{
+    font-family: 'lemon_bold';
 }
 
 @font-face {
