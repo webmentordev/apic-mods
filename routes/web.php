@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BuildCategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\GpuController;
 use App\Http\Controllers\MemoryController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\NvmeController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ProcessorController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PsuController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\SocketController;
 use App\Http\Controllers\SsdController;
@@ -19,9 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', Home::class)->name('home');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -40,7 +40,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/package/delete/{package}', [PackageController::class, 'delete'])->name('package.delete');
     Route::get('/package/update/{package}', [PackageController::class, 'update'])->name('update.package');
     Route::patch('/package/update-package/{package}', [PackageController::class, 'update_package'])->name('package.update');
-
 
     Route::get('/build-category', [BuildCategoryController::class, 'index'])->name('category');
     Route::post('/build-category', [BuildCategoryController::class, 'store']);
@@ -76,7 +75,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/memory-type', [MemoryTypeController::class, 'store']);
     Route::delete('/memory-type/delete/{memory-type}', [MemoryTypeController::class, 'delete'])->name('memory.type.delete');
 
-
     Route::get('/memory', [MemoryController::class, 'index'])->name('memory');
     Route::get('/memory/create', [MemoryController::class, 'create'])->name('memory.create');
     Route::post('/memory', [MemoryController::class, 'store']);
@@ -91,7 +89,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/ssd/delete/{ssd}', [SsdController::class, 'delete'])->name('ssd.delete');
     Route::get('/ssd/update/{ssd}', [SsdController::class, 'update'])->name('update.ssd');
     Route::patch('/ssd/update/{ssd}', [SsdController::class, 'update_ssd'])->name('ssd.update');
-
 
     Route::get('/nvme', [NvmeController::class, 'index'])->name('nvme');
     Route::get('/nvme/create', [NvmeController::class, 'create'])->name('nvme.create');
@@ -108,6 +105,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/gpu/delete/{gpu}', [GpuController::class, 'delete'])->name('gpu.delete');
     Route::get('/gpu/update/{gpu}', [GpuController::class, 'update'])->name('update.gpu');
     Route::patch('/gpu/update/{gpu}', [GpuController::class, 'update_gpu'])->name('gpu.update');
+
+    Route::get('/psu', [PsuController::class, 'index'])->name('psu');
+    Route::get('/psu/create', [PsuController::class, 'create'])->name('psu.create');
+    Route::post('/psu', [PsuController::class, 'store']);
+    Route::PATCH('/psu/update/status/{psu}', [PsuController::class, 'active'])->name('psu.status.update');
+    Route::delete('/psu/delete/{psu}', [PsuController::class, 'delete'])->name('psu.delete');
+    Route::get('/psu/update/{psu}', [PsuController::class, 'update'])->name('update.psu');
+    Route::patch('/psu/update/{psu}', [PsuController::class, 'update_psu'])->name('psu.update');
 
 });
 
