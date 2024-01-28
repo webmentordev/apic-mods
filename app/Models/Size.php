@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\PcCase;
+use App\Models\Motherboard;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Size extends Model
 {
@@ -12,4 +14,12 @@ class Size extends Model
     protected $fillable = [
         'size'
     ];
+
+    public function motherboards(){
+        return $this->hasMany(Motherboard::class);
+    }
+
+    public function cases(){
+        return $this->hasMany(PcCase::class);
+    }
 }

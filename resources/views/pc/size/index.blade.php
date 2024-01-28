@@ -35,12 +35,16 @@
                         <table class="w-full rounded-lg overflow-hidden text-sm">
                             <tr class="text-white bg-gray-900">
                                 <th class="text-start p-2">Name</th>
+                                <th class="text-start p-2">Motherboards</th>
+                                <th class="text-start p-2">PcCases</th>
                                 <th class="text-start p-2">Created</th>
                                 <th class="text-end p-2">Delete</th>
                             </tr>
                             @foreach ($sizes as $size)
                                 <tr class="odd:bg-gray-100">
                                     <td class="text-start p-2">{{ $size->size }}</td>
+                                    <td class="text-start p-2">{{ $size->motherboards_count }}</td>
+                                    <td class="text-start p-2">{{ $size->cases_count }}</td>
                                     <td class="text-start p-2">{{ $size->created_at->diffForHumans() }}</td>
                                     <td class="text-end p-2">
                                         <form action="{{ route('size.delete', $size->id) }}" method="post" id="form">

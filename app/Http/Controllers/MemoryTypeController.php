@@ -9,7 +9,7 @@ class MemoryTypeController extends Controller
 {
     public function index(){
         return view('pc.memory_type.index', [
-            'memorytypes' => MemoryType::latest()->paginate(50)
+            'memorytypes' => MemoryType::latest()->withCount(['memory', 'motherboards'])->paginate(50)
         ]);
     }
 

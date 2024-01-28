@@ -35,12 +35,16 @@
                         <table class="w-full rounded-lg overflow-hidden text-sm">
                             <tr class="text-white bg-gray-900">
                                 <th class="text-start p-2">Name</th>
+                                <th class="text-start p-2">Motherboards</th>
+                                <th class="text-start p-2">Processors</th>
                                 <th class="text-start p-2">Created</th>
                                 <th class="text-end p-2">Delete</th>
                             </tr>
                             @foreach ($sockets as $socket)
                                 <tr class="odd:bg-gray-100">
                                     <td class="text-start p-2">{{ $socket->name }}</td>
+                                    <td class="text-start p-2">{{ $socket->motherboards_count }}</td>
+                                    <td class="text-start p-2">{{ $socket->processors_count }}</td>
                                     <td class="text-start p-2">{{ $socket->created_at->diffForHumans() }}</td>
                                     <td class="text-end p-2">
                                         <form action="{{ route('socket.delete', $socket->id) }}" method="post" id="form">
@@ -66,5 +70,16 @@
                 @endif
             </div>
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var form = document.getElementById('form');
+                form.addEventListener('submit', function (event) {
+                    var isConfirmed = confirm('Are you sure you want to delete this case?');
+                    if (!isConfirmed) {
+                        event.preventDefault();
+                    }
+                });
+            });
+        </script>
     </div>
 </x-app-layout>

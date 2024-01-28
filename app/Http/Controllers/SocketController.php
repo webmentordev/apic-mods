@@ -9,7 +9,7 @@ class SocketController extends Controller
 {
     public function index(){
         return view('pc.socket.index', [
-            'sockets' => Socket::latest()->paginate(50)
+            'sockets' => Socket::latest()->withCount(['motherboards', 'processors'])->paginate(50)
         ]);
     }
 

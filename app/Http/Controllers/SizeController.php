@@ -9,7 +9,7 @@ class SizeController extends Controller
 {
     public function index(){
         return view('pc.size.index', [
-            'sizes' => Size::latest()->paginate(50)
+            'sizes' => Size::latest()->withCount(['motherboards', 'cases'])->paginate(50)
         ]);
     }
 
