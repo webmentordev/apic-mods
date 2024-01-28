@@ -9,6 +9,7 @@ use App\Http\Controllers\MemoryTypeController;
 use App\Http\Controllers\MotherboardController;
 use App\Http\Controllers\NvmeController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\PcCaseController;
 use App\Http\Controllers\ProcessorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PsuController;
@@ -113,6 +114,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/psu/delete/{psu}', [PsuController::class, 'delete'])->name('psu.delete');
     Route::get('/psu/update/{psu}', [PsuController::class, 'update'])->name('update.psu');
     Route::patch('/psu/update/{psu}', [PsuController::class, 'update_psu'])->name('psu.update');
+
+    Route::get('/pc-case', [PcCaseController::class, 'index'])->name('case');
+    Route::get('/pc-case/create', [PcCaseController::class, 'create'])->name('case.create');
+    Route::post('/pc-case', [PcCaseController::class, 'store']);
+    Route::PATCH('/pc-case/update/status/{pccase}', [PcCaseController::class, 'active'])->name('case.status.update');
+    Route::delete('/pc-case/delete/{pccase}', [PcCaseController::class, 'delete'])->name('case.delete');
+    Route::get('/pc-case/update/{pccase}', [PcCaseController::class, 'update'])->name('update.case');
+    Route::patch('/pc-case/update/{pccase}', [PcCaseController::class, 'update_case'])->name('case.update');
 
 });
 
