@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AirCoolerController;
 use App\Http\Controllers\BuildCategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GalleryController;
@@ -122,6 +123,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/pc-case/delete/{pccase}', [PcCaseController::class, 'delete'])->name('case.delete');
     Route::get('/pc-case/update/{pccase}', [PcCaseController::class, 'update'])->name('update.case');
     Route::patch('/pc-case/update/{pccase}', [PcCaseController::class, 'update_case'])->name('case.update');
+
+    Route::get('/air-cooler', [AirCoolerController::class, 'index'])->name('air.cooler');
+    Route::get('/air-cooler/create', [AirCoolerController::class, 'create'])->name('air.cooler.create');
+    Route::post('/air-cooler', [AirCoolerController::class, 'store']);
+    Route::PATCH('/air-cooler/update/status/{aircooler}', [AirCoolerController::class, 'active'])->name('air.cooler.status.update');
+    Route::delete('/air-cooler/delete/{aircooler}', [AirCoolerController::class, 'delete'])->name('air.cooler.delete');
+    Route::get('/air-cooler/update/{aircooler}', [AirCoolerController::class, 'update'])->name('update.air.cooler');
+    Route::patch('/air-cooler/update/{aircooler}', [AirCoolerController::class, 'update_aircooler'])->name('air.cooler.update');
 
 });
 
