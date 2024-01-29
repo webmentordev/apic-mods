@@ -131,6 +131,9 @@
                             <x-dropdown-link :href="route('water.cooler')">
                                 {{ __('Water Cooler') }}
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('sleeve')">
+                                {{ __('Sleeves') }}
+                            </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
                 </div>

@@ -15,6 +15,7 @@ use App\Http\Controllers\ProcessorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PsuController;
 use App\Http\Controllers\SizeController;
+use App\Http\Controllers\SleeveController;
 use App\Http\Controllers\SocketController;
 use App\Http\Controllers\SsdController;
 use App\Http\Controllers\WaterCoolerController;
@@ -140,6 +141,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/water-cooler/delete/{watercooler}', [WaterCoolerController::class, 'delete'])->name('water.cooler.delete');
     Route::get('/water-cooler/update/{watercooler}', [WaterCoolerController::class, 'update'])->name('update.water.cooler');
     Route::patch('/water-cooler/update/{watercooler}', [WaterCoolerController::class, 'update_watercooler'])->name('water.cooler.update');
+
+    Route::get('/sleeve', [SleeveController::class, 'index'])->name('sleeve');
+    Route::get('/sleeve/create', [SleeveController::class, 'create'])->name('sleeve.create');
+    Route::post('/sleeve', [SleeveController::class, 'store']);
+    Route::PATCH('/sleeve/update/status/{sleeve}', [SleeveController::class, 'active'])->name('sleeve.status.update');
+    Route::delete('/sleeve/delete/{sleeve}', [SleeveController::class, 'delete'])->name('sleeve.delete');
+    Route::get('/sleeve/update/{sleeve}', [SleeveController::class, 'update'])->name('update.sleeve');
+    Route::patch('/sleeve/update/{sleeve}', [SleeveController::class, 'update_watercooler'])->name('sleeve.update');
 
 });
 
