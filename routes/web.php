@@ -17,6 +17,7 @@ use App\Http\Controllers\PsuController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\SocketController;
 use App\Http\Controllers\SsdController;
+use App\Http\Controllers\WaterCoolerController;
 use App\Livewire\Home;
 use Illuminate\Support\Facades\Route;
 
@@ -131,6 +132,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/air-cooler/delete/{aircooler}', [AirCoolerController::class, 'delete'])->name('air.cooler.delete');
     Route::get('/air-cooler/update/{aircooler}', [AirCoolerController::class, 'update'])->name('update.air.cooler');
     Route::patch('/air-cooler/update/{aircooler}', [AirCoolerController::class, 'update_aircooler'])->name('air.cooler.update');
+
+    Route::get('/water-cooler', [WaterCoolerController::class, 'index'])->name('water.cooler');
+    Route::get('/water-cooler/create', [WaterCoolerController::class, 'create'])->name('water.cooler.create');
+    Route::post('/water-cooler', [WaterCoolerController::class, 'store']);
+    Route::PATCH('/water-cooler/update/status/{watercooler}', [WaterCoolerController::class, 'active'])->name('water.cooler.status.update');
+    Route::delete('/water-cooler/delete/{watercooler}', [WaterCoolerController::class, 'delete'])->name('water.cooler.delete');
+    Route::get('/water-cooler/update/{watercooler}', [WaterCoolerController::class, 'update'])->name('update.water.cooler');
+    Route::patch('/water-cooler/update/{watercooler}', [WaterCoolerController::class, 'update_watercooler'])->name('water.cooler.update');
 
 });
 
