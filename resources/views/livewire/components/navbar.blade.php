@@ -9,11 +9,12 @@
             <a href="{{ route('home') }}#builds" class="ml-9">Builds</a>
             <a href="#contact" class="ml-9">Contact</a>
             @auth
-                <a href="{{ route('dashboard') }}" class="ml-9">Dashboard</a>
+            <a href="{{ route('dashboard') }}" class="ml-9">Dashboard</a>
             @endauth
             <a href="https://www.facebook.com/APIC.PaYFrog.Modmode" target="_blank" title="APIC Mods Facebook" class="ml-6">
                 <img width="35" src="https://api.iconify.design/ri:facebook-circle-fill.svg?color=%23316FF6" title="APIC Mods Facebook" alt="Facebook Logo">
             </a>
+            <a href="{{ route('build.pc') }}" class="py-3 rounded-r-2xl px-4 bg-main text-dark ml-9">Build Your PC</a>
         </ul>
         <div class="relative hidden 530px:block" x-data="{ open: false}">
             <img src="https://api.iconify.design/charm:menu-hamburger.svg?color=%23363636" width="30" alt="Expand Icon" x-on:click="open = !open">

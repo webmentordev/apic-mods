@@ -19,11 +19,13 @@ use App\Http\Controllers\SleeveController;
 use App\Http\Controllers\SocketController;
 use App\Http\Controllers\SsdController;
 use App\Http\Controllers\WaterCoolerController;
+use App\Livewire\BuildPC;
 use App\Livewire\Home;
 use Illuminate\Support\Facades\Route;
 
-
 Route::get('/', Home::class)->name('home');
+
+Route::get('/build-your-pc', BuildPC::class)->name('build.pc');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
