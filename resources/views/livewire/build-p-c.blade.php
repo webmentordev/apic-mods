@@ -10,7 +10,13 @@
                     @endif
                 </div>
                 <div class="w-full relative" x-data="{ open: false }">
-                    <div x-on:click="open=!open" class="w-full flex items-center justify-between rounded-sm py-3 px-3 bg-dark-light text-white cursor-pointer"><span>— Wählen Sie einen Prozessor aus —</span><img src="https://api.iconify.design/bx:caret-down.svg?color=%237d7d7d" alt="Caret Down"></div>
+                    <div x-on:click="open=!open" class="w-full flex items-center justify-between rounded-sm py-3 px-3 bg-dark-light text-white cursor-pointer">
+                        @if (isset($items['processor']))
+                            <p class="text-main">{{ $items['processor']['name'] }}</p>
+                        @else
+                            <span>— Wählen Sie einen Prozessor aus —</span><img src="https://api.iconify.design/bx:caret-down.svg?color=%237d7d7d" alt="Caret Down">
+                        @endif
+                    </div>
                     <div x-cloak x-transition x-show="open" class="w-full z-10 absolute top-12 rounded-md left-0 bg-dark-light p-2 text-white max-h-[200px] h-fit overflow-y-scroll">
                         @foreach ($processors as $item)
                             <div wire:click="$set('processor', '{{ $item->name }}')" x-on:click="open=false" class="flex items-center cursor-pointer justify-between bg-dark-light rounded-lg mb-2 p-3">
@@ -34,7 +40,13 @@
                     </div>
                     @if (count($sockets->motherboards))
                         <div class="w-full relative" x-data="{ open: false }">
-                            <div x-on:click="open=!open" class="w-full flex items-center justify-between rounded-sm py-3 px-3 bg-dark-light text-white cursor-pointer"> <span>— Wählen Sie ein Motherboard aus —</span><img src="https://api.iconify.design/bx:caret-down.svg?color=%237d7d7d" alt="Caret Down"></div>
+                            <div x-on:click="open=!open" class="w-full flex items-center justify-between rounded-sm py-3 px-3 bg-dark-light text-white cursor-pointer">
+                                @if (isset($items['motherboard']))
+                                    <p class="text-main">{{ $items['motherboard']['name'] }}</p>
+                                @else
+                                    <span>— Wählen Sie ein Motherboard aus —</span><img src="https://api.iconify.design/bx:caret-down.svg?color=%237d7d7d" alt="Caret Down">
+                                @endif
+                            </div>
                             <div x-cloak x-transition x-show="open" class="w-full z-10 absolute top-12 rounded-md left-0 bg-dark-light p-2 text-white max-h-[200px] h-fit overflow-y-scroll">
                                 @foreach ($sockets->motherboards as $item)
                                     <div wire:click="$set('motherboard', '{{ $item->name }}')" x-on:click="open=false" class="flex items-center cursor-pointer justify-between bg-dark-light rounded-lg mb-2 p-3">
@@ -53,17 +65,36 @@
                 </div>
 
 
+
+
+
+
+
+
+
+
+
+
                 @if ($motherboard)
                     <div class="mb-3 w-full">
                         <div class="flex items-center">
                             <x-custom-label :value="__('Memory (RAM)')" />
                             @if (isset($items['ram']))
-                                <img class="ml-2 -translate-y-1" src="https://api.iconify.design/ic:round-check-circle-outline.svg?color=%2326cf42" width="20">
+                                <div class="flex items-center mb-3">
+                                    <img class="ml-2" src="https://api.iconify.design/ic:round-check-circle-outline.svg?color=%2326cf42" width="20">
+                                    <button wire:click='removeRAM' class="py-1 px-2 text-white bg-red-600 ml-1 inline-block text-sm rounded-md">Remove</button>
+                                </div>
                             @endif
                         </div>
-                        @if ($memories)
+                        @if (count($memories))
                             <div class="w-full relative" x-data="{ open: false }">
-                                <div x-on:click="open=!open" class="w-full flex items-center justify-between rounded-sm py-3 px-3 bg-dark-light text-white cursor-pointer"> <span>— Wählen Sie ein Memory aus —</span><img src="https://api.iconify.design/bx:caret-down.svg?color=%237d7d7d" alt="Caret Down"></div>
+                                <div x-on:click="open=!open" class="w-full flex items-center justify-between rounded-sm py-3 px-3 bg-dark-light text-white cursor-pointer">
+                                    @if (isset($items['ram']))
+                                        <p class="text-main">{{ $items['ram']['name'] }}</p>
+                                    @else
+                                        <span>— Wählen Sie ein Memory aus —</span><img src="https://api.iconify.design/bx:caret-down.svg?color=%237d7d7d" alt="Caret Down">
+                                    @endif
+                                </div>
                                 <div x-cloak x-transition x-show="open" class="w-full z-10 absolute top-12 rounded-md left-0 bg-dark-light p-2 text-white max-h-[200px] h-fit overflow-y-scroll">
                                     @foreach ($memories as $item)
                                         <div wire:click="$set('ram', '{{ $item->name }}')" x-on:click="open=false" class="flex items-center cursor-pointer justify-between bg-dark-light rounded-lg mb-2 p-3">
@@ -83,29 +114,47 @@
                 @endif
             @endif
 
-
             <div class="mb-3 w-full">
                 <div class="flex items-center">
                     <x-custom-label :value="__('NVME (Storage)')" />
-                    @if (isset($items['nvme']))
-                        <img class="ml-2 -translate-y-1" src="https://api.iconify.design/ic:round-check-circle-outline.svg?color=%2326cf42" width="20">
+                    @if (isset($items['nvmes']))
+                        <div class="flex items-center mb-3">
+                            <img class="ml-2" src="https://api.iconify.design/ic:round-check-circle-outline.svg?color=%2326cf42" width="20">
+                            <button wire:click='removeNVMES' class="py-1 px-2 text-white bg-red-600 ml-1 inline-block text-sm rounded-md">Remove All</button>
+                            <button wire:click="addNVME" class="py-1 px-2 text-white bg-blue-600 ml-1 inline-block text-sm rounded-md">Add</button>
+                        </div>
                     @endif
                 </div>
                 @if ($nvmes)
-                    <div class="w-full relative" x-data="{ open: false }">
-                        <div x-on:click="open=!open" class="w-full flex items-center justify-between rounded-sm py-3 px-3 bg-dark-light text-white cursor-pointer"> <span>— Wählen Sie ein NVMEs aus —</span><img src="https://api.iconify.design/bx:caret-down.svg?color=%237d7d7d" alt="Caret Down"></div>
-                        <div x-cloak x-transition x-show="open" class="w-full z-10 absolute top-12 rounded-md left-0 bg-dark-light p-2 text-white max-h-[200px] h-fit overflow-y-scroll">
-                            @foreach ($nvmes as $item)
-                                <div wire:click="$set('nvme', '{{ $item->name }}')" x-on:click="open=false" class="flex items-center cursor-pointer justify-between bg-dark-light rounded-lg mb-2 p-3">
-                                    <div class="flex items-center">
-                                        <img src="{{ asset('/storage/'. $item->image) }}" class="max-w-[40px] mr-3 w-full" alt="">
-                                        <p>{{ substr($item->name, 0, 70) }}...</p>
+                    @for($start = 0; $start < $nvme_count; $start++)
+                        <div class="w-full relative mb-3" x-data="{ open: false }">
+                            <div x-on:click="open=!open" class="w-full flex items-center justify-between rounded-sm py-3 px-3 bg-dark-light text-white cursor-pointer">
+                                @if (isset($items['nvmes'][$start]))
+                                    <div class="flex items-center justify-between w-full">
+                                        @if ($start != 0)
+                                            <p class="text-main">{{ $items['nvmes'][$start]['name'] }}</p>
+                                            <button wire:click="removeNVME({{ $start }})" class="ml-4 py-1 px-2 text-white bg-red-600 inline-block text-sm rounded-md">Remove</button>
+                                        @else
+                                            <p><span class="text-main">{{ $items['nvmes'][$start]['name'] }}</span> (Primary)</p>
+                                        @endif
                                     </div>
-                                    <p class="text-main">€ {{ $item->price }}</p>
-                                </div>
-                            @endforeach
+                                @else
+                                    <span>— Wählen Sie ein NVME aus —</span><img src="https://api.iconify.design/bx:caret-down.svg?color=%237d7d7d" alt="Caret Down">
+                                @endif
+                            </div>
+                            <div x-cloak x-transition x-show="open" class="w-full z-10 absolute top-12 rounded-md left-0 bg-dark-light p-2 text-white max-h-[200px] h-fit overflow-y-scroll">
+                                @foreach ($nvmes as $item)
+                                    <div wire:click="addNvmeToArray('{{ $start }}', '{{ $item->name }}')" x-on:click="open=false" class="flex items-center cursor-pointer justify-between bg-dark-light rounded-lg mb-2 p-3">
+                                        <div class="flex items-center">
+                                            <img src="{{ asset('/storage/'. $item->image) }}" class="max-w-[40px] mr-3 w-full" alt="">
+                                            <p>{{ substr($item->name, 0, 70) }}...</p>
+                                        </div>
+                                        <p class="text-main">€ {{ $item->price }}</p>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
-                    </div>
+                    @endfor
                 @else
                     <p class="text-white">Motherboards für den nvme gibt es nicht!</p>
                 @endif
@@ -115,27 +164,46 @@
             <div class="mb-3 w-full">
                 <div class="flex items-center">
                     <x-custom-label :value="__('SSD (Storage)')" />
-                    @if (isset($items['ssd']))
-                        <img class="ml-2 -translate-y-1" src="https://api.iconify.design/ic:round-check-circle-outline.svg?color=%2326cf42" width="20">
+                    @if (isset($items['ssds']))
+                        <div class="flex items-center mb-3">
+                            <img class="ml-2" src="https://api.iconify.design/ic:round-check-circle-outline.svg?color=%2326cf42" width="20">
+                            <button wire:click='removeSSDS' class="py-1 px-2 text-white bg-red-600 ml-1 inline-block text-sm rounded-md">Remove All</button>
+                            <button wire:click="addSSD" class="py-1 px-2 text-white bg-blue-600 ml-1 inline-block text-sm rounded-md">Add</button>
+                        </div>
                     @endif
                 </div>
                 @if ($ssds)
-                    <div class="w-full relative" x-data="{ open: false }">
-                        <div x-on:click="open=!open" class="w-full flex items-center justify-between rounded-sm py-3 px-3 bg-dark-light text-white cursor-pointer"> <span>— Wählen Sie ein SSD aus —</span><img src="https://api.iconify.design/bx:caret-down.svg?color=%237d7d7d" alt="Caret Down"></div>
-                        <div x-cloak x-transition x-show="open" class="w-full z-10 absolute top-12 rounded-md left-0 bg-dark-light p-2 text-white max-h-[200px] h-fit overflow-y-scroll">
-                            @foreach ($ssds as $item)
-                                <div wire:click="$set('ssd', '{{ $item->name }}')" x-on:click="open=false" class="flex items-center cursor-pointer justify-between bg-dark-light rounded-lg mb-2 p-3">
-                                    <div class="flex items-center">
-                                        <img src="{{ asset('/storage/'. $item->image) }}" class="max-w-[40px] mr-3 w-full" alt="">
-                                        <p>{{ substr($item->name, 0, 70) }}...</p>
+                    @for($start = 0; $start < $ssd_count; $start++)
+                        <div class="w-full relative mb-3" x-data="{ open: false }">
+                            <div x-on:click="open=!open" class="w-full flex items-center justify-between rounded-sm py-3 px-3 bg-dark-light text-white cursor-pointer">
+                                @if (isset($items['ssds'][$start]))
+                                    <div class="flex items-center justify-between w-full">
+                                        @if ($start != 0)
+                                            <p class="text-main">{{ $items['ssds'][$start]['name'] }}</p>
+                                            <button wire:click="removeSSD({{ $start }})" class="ml-4 py-1 px-2 text-white bg-red-600 inline-block text-sm rounded-md">Remove</button>
+                                        @else
+                                            <p><span class="text-main">{{ $items['ssds'][$start]['name'] }}</span> (Primary)</p>
+                                        @endif
                                     </div>
-                                    <p class="text-main">€ {{ $item->price }}</p>
-                                </div>
-                            @endforeach
+                                @else
+                                    <span>— Wählen Sie ein SSDs aus —</span><img src="https://api.iconify.design/bx:caret-down.svg?color=%237d7d7d" alt="Caret Down">
+                                @endif
+                            </div>
+                            <div x-cloak x-transition x-show="open" class="w-full z-10 absolute top-12 rounded-md left-0 bg-dark-light p-2 text-white max-h-[200px] h-fit overflow-y-scroll">
+                                @foreach ($ssds as $item)
+                                    <div wire:click="addSsdToArray('{{ $start }}', '{{ $item->name }}')" x-on:click="open=false" class="flex items-center cursor-pointer justify-between bg-dark-light rounded-lg mb-2 p-3">
+                                        <div class="flex items-center">
+                                            <img src="{{ asset('/storage/'. $item->image) }}" class="max-w-[40px] mr-3 w-full" alt="">
+                                            <p>{{ substr($item->name, 0, 70) }}...</p>
+                                        </div>
+                                        <p class="text-main">€ {{ $item->price }}</p>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
-                    </div>
+                    @endfor
                 @else
-                    <p class="text-white">Motherboards für den ssd gibt es nicht!</p>
+                    <p class="text-white">Motherboards für den SSD gibt es nicht!</p>
                 @endif
             </div>
 
@@ -144,13 +212,35 @@
                 @if (count($items))
                     <div class="flex flex-col w-full border-b border-white/20 mb-3">
                         @foreach ($items as $key => $item)
-                            <div class="p-3 flex items-center justify-between w-full mb-3">
-                                <div class="flex items-center">
-                                    <img src="{{ $item['image'] }}" class="max-w-[40px]" alt="{{ $key }} image">
-                                    <p class="ml-2 w-full">{{ $item['name'] }}</p>
+                            @if ($key == "nvmes")
+                                @foreach ($item as $nvme)
+                                    <div class="p-3 flex items-center justify-between w-full mb-3">
+                                        <div class="flex items-center">
+                                            <img src="{{ $nvme['image'] }}" class="max-w-[40px]">
+                                            <p class="ml-2 w-full">{{ $nvme['name'] }}</p>
+                                        </div>
+                                        <span class="text-main max-w-[100px] text-end w-full">€ {{ $nvme['price'] }}</span>
+                                    </div>
+                                @endforeach
+                            @elseif ($key == "ssds")
+                                @foreach ($item as $ssd)
+                                    <div class="p-3 flex items-center justify-between w-full mb-3">
+                                        <div class="flex items-center">
+                                            <img src="{{ $ssd['image'] }}" class="max-w-[40px]">
+                                            <p class="ml-2 w-full">{{ $ssd['name'] }}</p>
+                                        </div>
+                                        <span class="text-main max-w-[100px] text-end w-full">€ {{ $ssd['price'] }}</span>
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="p-3 flex items-center justify-between w-full mb-3">
+                                    <div class="flex items-center">
+                                        <img src="{{ $item['image'] }}" class="max-w-[40px]" alt="{{ $key }} image">
+                                        <p class="ml-2 w-full">{{ $item['name'] }}</p>
+                                    </div>
+                                    <span class="text-main max-w-[100px] text-end w-full">€ {{ $item['price'] }}</span>
                                 </div>
-                                <span class="text-main max-w-[100px] text-end w-full">€ {{ $item['price'] }}</span>
-                            </div>
+                            @endif
                         @endforeach
                     </div>
                     <div class="flex justify-between">

@@ -13,7 +13,7 @@ use App\Models\Ssd;
 class BuildPC extends Component
 {
 
-    public $items = [], $errors = [], $total_price = 0;
+    public $items = [], $errors = [], $total_price = 0, $ram_count = 1, $nvme_count = 1, $ssd_count = 1;
 
     public $processor, 
     $motherboard, 
@@ -44,6 +44,18 @@ class BuildPC extends Component
             'nvmes' => Nvme::latest()->get(),
             'ssds' => Ssd::latest()->get(),
         ]);
+    }
+
+    public function addNVME(){
+        $this->nvme_count++;
+    }
+
+    public function addRAM(){
+        $this->ram_count++;
+    }
+
+    public function addSSD(){
+        $this->ssd_count++;
     }
 
     public function updatedprocessor(){
@@ -82,19 +94,9 @@ class BuildPC extends Component
         $this->calculator();
     }
 
-    public function updatedssd(){
-        $ssd = Ssd::where('name', $this->ssd)->first();
-        $this->items['ssd'] = [
-            'name' => $ssd->name,
-            'price' => $ssd->price,
-            'image' => config('app.url').'/storage/'.$ssd->image
-        ];
-        $this->calculator();
-    }
-
-    public function updatednvme(){
-        $nvme = Nvme::where('name', $this->nvme)->first();
-        $this->items['nvme'] = [
+    public function addNvmeToArray($number, $nvme){
+        $nvme = Nvme::where('name', $nvme)->first();
+        $this->items['nvmes'][$number] = [
             'name' => $nvme->name,
             'price' => $nvme->price,
             'image' => config('app.url').'/storage/'.$nvme->image
@@ -102,12 +104,64 @@ class BuildPC extends Component
         $this->calculator();
     }
 
+    public function addSsdToArray($number, $ssd){
+        $ssd = Ssd::where('name', $ssd)->first();
+        $this->items['ssds'][$number] = [
+            'name' => $ssd->name,
+            'price' => $ssd->price,
+            'image' => config('app.url').'/storage/'.$ssd->image
+        ];
+        $this->calculator();
+    }
+
     public function calculator(){
         $price = 0;
         foreach($this->items as $key => $item){
-            $price += $item['price'];
+            if($key == "nvmes"){
+                foreach($item as $nvme){
+                    $price += $nvme['price'];
+                }
+            }elseif($key == "ssds"){
+                foreach($item as $ssd){
+                    $price += $ssd['price'];
+                }
+            }else{
+                $price += $item['price'];
+            }
         }
         $this->total_price = $price;
+    }
+
+
+    public function removeRAM(){
+        unset($this->items['rams']);
+        $this->calculator();
+    }
+
+    public function removeNVMES(){
+        unset($this->items['nvmes']);
+        $this->nvme_count = 1;
+        $this->calculator();
+    }
+
+    public function removeNVME($number){
+        unset($this->items['nvmes'][$number]);
+        $this->items['nvmes'] = array_values($this->items['nvmes']);
+        $this->nvme_count = $this->nvme_count - 1;
+        $this->calculator();
+    }
+
+    public function removeSSDS(){
+        unset($this->items['ssds']);
+        $this->ssd_count = 1;
+        $this->calculator();
+    }
+
+    public function removeSSD($number){
+        unset($this->items['ssds'][$number]);
+        $this->items['ssds'] = array_values($this->items['ssds']);
+        $this->ssd_count = $this->ssd_count - 1;
+        $this->calculator();
     }
 
 
