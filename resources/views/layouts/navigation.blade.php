@@ -46,7 +46,7 @@
                         </x-slot>
                         <x-slot name="content">
                             <x-dropdown-link :href="route('size')">
-                                {{ __('CPU / Casing Size') }}
+                                {{ __('MBoard / Casing Size') }}
                             </x-dropdown-link>
 
                             <x-dropdown-link :href="route('socket')">

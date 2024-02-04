@@ -15,10 +15,12 @@ class SizeController extends Controller
 
     public function store(Request $request){
         $this->validate($request, [
-            'size' => 'required|string'
+            'size' => 'required|string',
+            'number' => 'required|numeric'
         ]);
         Size::create([
-            'size' => $request->size
+            'size' => $request->size,
+            'number' => $request->number
         ]);
         return back()->with('success', 'Component Size has been Added');
     }

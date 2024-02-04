@@ -2,11 +2,14 @@
     <div class="max-w-3xl m-auto pb-[150px]">
         <h2 class="mb-12 lemon_m text-center text-4xl text-white 650px:text-4xl">BUILD YOUR <span class="text-main lemon_m">CUSTOM GAMING</span> PC</h2>
         <main class="w-full">
-            <div class="mb-3 w-full">
+            <div class="mb-7 w-full">
                 <div class="flex items-center">
                     <x-custom-label :value="__('CPU / Processor')" />
                     @if (isset($items['processor']))
-                        <img class="ml-2 -translate-y-1" src="https://api.iconify.design/ic:round-check-circle-outline.svg?color=%2326cf42" width="20">
+                        <div class="flex items-center mb-3">
+                            <img class="ml-2" src="https://api.iconify.design/ic:round-check-circle-outline.svg?color=%2326cf42" width="20">
+                            <button wire:click='removeProcessor' class="py-1 px-2 text-white bg-red-600 ml-1 inline-block text-sm rounded-md">Remove</button>
+                        </div>
                     @endif
                 </div>
                 <div class="w-full relative" x-data="{ open: false }">
@@ -31,7 +34,7 @@
                 </div>
             </div>
             @if ($processor)
-                <div class="mb-3 w-full">
+                <div class="mb-7 w-full">
                     <div class="flex items-center">
                         <x-custom-label :value="__('Motherboard')" />
                         @if (isset($items['motherboard']))
@@ -64,19 +67,8 @@
                     @endif
                 </div>
 
-
-
-
-
-
-
-
-
-
-
-
                 @if ($motherboard)
-                    <div class="mb-3 w-full">
+                    <div class="mb-12 w-full">
                         <div class="flex items-center">
                             <x-custom-label :value="__('Memory (RAM)')" />
                             @if (isset($items['ram']))
@@ -114,7 +106,7 @@
                 @endif
             @endif
 
-            <div class="mb-3 w-full">
+            <div class="mb-7 w-full">
                 <div class="flex items-center">
                     <x-custom-label :value="__('NVME (Storage)')" />
                     @if (isset($items['nvmes']))
@@ -161,7 +153,7 @@
             </div>
 
 
-            <div class="mb-3 w-full">
+            <div class="mb-7 w-full">
                 <div class="flex items-center">
                     <x-custom-label :value="__('SSD (Storage)')" />
                     @if (isset($items['ssds']))
@@ -206,6 +198,74 @@
                     <p class="text-white">Motherboards für den SSD gibt es nicht!</p>
                 @endif
             </div>
+
+
+            <div class="mb-7 w-full">
+                <div class="flex items-center">
+                    <x-custom-label :value="__('GPU')" />
+                    @if (isset($items['gpu']))
+                        <div class="flex items-center mb-3">
+                            <img class="ml-2" src="https://api.iconify.design/ic:round-check-circle-outline.svg?color=%2326cf42" width="20">
+                            <button wire:click='removeGPU' class="py-1 px-2 text-white bg-red-600 ml-1 inline-block text-sm rounded-md">Remove</button>
+                        </div>
+                    @endif
+                </div>
+                <div class="w-full relative" x-data="{ open: false }">
+                    <div x-on:click="open=!open" class="w-full flex items-center justify-between rounded-sm py-3 px-3 bg-dark-light text-white cursor-pointer">
+                        @if (isset($items['gpu']))
+                            <p class="text-main">{{ $items['gpu']['name'] }}</p>
+                        @else
+                            <span>— Wählen Sie einen GPU aus —</span><img src="https://api.iconify.design/bx:caret-down.svg?color=%237d7d7d" alt="Caret Down">
+                        @endif
+                    </div>
+                    <div x-cloak x-transition x-show="open" class="w-full z-10 absolute top-12 rounded-md left-0 bg-dark-light p-2 text-white max-h-[200px] h-fit overflow-y-scroll">
+                        @foreach ($gpus as $item)
+                            <div wire:click="$set('gpu', '{{ $item->name }}')" x-on:click="open=false" class="flex items-center cursor-pointer justify-between bg-dark-light rounded-lg mb-2 p-3">
+                                <div class="flex items-center">
+                                    <img src="{{ asset('/storage/'. $item->image) }}" class="max-w-[40px] mr-3 w-full" alt="">
+                                    <p>{{ substr($item->name, 0, 70) }}...</p>
+                                </div>
+                                <p class="text-main">€ {{ $item->price }}</p>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
+
+            @if ($motherboard)
+                <div class="mb-7 w-full">
+                    <div class="flex items-center">
+                        <x-custom-label :value="__('PC Cases')" />
+                        @if (isset($items['case']))
+                            <div class="flex items-center mb-3">
+                                <img class="ml-2" src="https://api.iconify.design/ic:round-check-circle-outline.svg?color=%2326cf42" width="20">
+                                <button wire:click='removeCase' class="py-1 px-2 text-white bg-red-600 ml-1 inline-block text-sm rounded-md">Remove</button>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="w-full relative" x-data="{ open: false }">
+                        <div x-on:click="open=!open" class="w-full flex items-center justify-between rounded-sm py-3 px-3 bg-dark-light text-white cursor-pointer">
+                            @if (isset($items['case']))
+                                <p class="text-main">{{ $items['case']['name'] }}</p>
+                            @else
+                                <span>— Wählen Sie einen Case aus —</span><img src="https://api.iconify.design/bx:caret-down.svg?color=%237d7d7d" alt="Caret Down">
+                            @endif
+                        </div>
+                        <div x-cloak x-transition x-show="open" class="w-full z-10 absolute top-12 rounded-md left-0 bg-dark-light p-2 text-white max-h-[200px] h-fit overflow-y-scroll">
+                            @foreach ($cases as $item)
+                                <div wire:click="$set('case', '{{ $item->name }}')" x-on:click="open=false" class="flex items-center cursor-pointer justify-between bg-dark-light rounded-lg mb-2 p-3">
+                                    <div class="flex items-center">
+                                        <img src="{{ asset('/storage/'. $item->image) }}" class="max-w-[40px] mr-3 w-full" alt="">
+                                        <p>{{ substr($item->name, 0, 70) }}...</p>
+                                    </div>
+                                    <p class="text-main">€ {{ $item->price }}</p>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            @endif
 
             <div class="p-4 rounded-xl bg-white/10 text-white">
                 <h3 class="text-lg mb-3 beyonders">Selection Summery</h3>

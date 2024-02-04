@@ -12,7 +12,8 @@ class Size extends Model
     use HasFactory;
 
     protected $fillable = [
-        'size'
+        'size',
+        'number'
     ];
 
     public function motherboards(){

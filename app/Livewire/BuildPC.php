@@ -2,12 +2,14 @@
 
 namespace App\Livewire;
 
+use App\Models\Gpu;
 use App\Models\Memory;
 use App\Models\Socket;
 use Livewire\Component;
 use App\Models\Processor;
 use App\Models\Motherboard;
 use App\Models\Nvme;
+use App\Models\PcCase;
 use App\Models\Ssd;
 
 class BuildPC extends Component
@@ -20,9 +22,10 @@ class BuildPC extends Component
     $ram, 
     $nvme,
     $ssd,
+    $gpu,
     $case, $cooler;
 
-    public $sockets, $memories, $motherboards;
+    public $sockets, $memories, $motherboards, $cases;
 
 
     public function rules(){
@@ -43,6 +46,7 @@ class BuildPC extends Component
             'processors' => Processor::latest()->with(['socket'])->get(),
             'nvmes' => Nvme::latest()->get(),
             'ssds' => Ssd::latest()->get(),
+            'gpus' => Gpu::latest()->get()
         ]);
     }
 
@@ -73,6 +77,7 @@ class BuildPC extends Component
     public function updatedmotherboard(){
         $motherboard = Motherboard::where('name', $this->motherboard)->first();
         $this->memories = Memory::where('memory_type_id', $motherboard->memory_type_id)->get();
+        $this->cases = PcCase::get();
         $this->items['motherboard'] = [
             'name' => $motherboard->name,
             'price' => $motherboard->price,
@@ -114,6 +119,17 @@ class BuildPC extends Component
         $this->calculator();
     }
 
+    public function updatedgpu(){
+        $gpu = Gpu::where('name', $this->gpu)->first();
+        $this->items['gpu'] = [
+            'name' => $gpu->name,
+            'price' => $gpu->price,
+            'power' => $gpu->power,
+            'image' => config('app.url').'/storage/'.$gpu->image
+        ];
+        $this->calculator();
+    }
+    
     public function calculator(){
         $price = 0;
         foreach($this->items as $key => $item){
@@ -132,9 +148,9 @@ class BuildPC extends Component
         $this->total_price = $price;
     }
 
-
     public function removeRAM(){
-        unset($this->items['rams']);
+        unset($this->items['ram']);
+        $this->ram_count = 1;
         $this->calculator();
     }
 
@@ -157,13 +173,24 @@ class BuildPC extends Component
         $this->calculator();
     }
 
+    public function removeGPU(){
+        unset($this->items['gpu']);
+        $this->calculator();
+    }
+
+    public function removeProcessor(){
+        unset($this->items['processor']);
+        unset($this->items['motherboard']);
+        unset($this->items['ram']);
+        $this->calculator();
+    }
+
     public function removeSSD($number){
         unset($this->items['ssds'][$number]);
         $this->items['ssds'] = array_values($this->items['ssds']);
         $this->ssd_count = $this->ssd_count - 1;
         $this->calculator();
     }
-
 
     public function compatibility(){
         if($this->items['motherboard']['socket'] != $this->items['processor']['socket']){
