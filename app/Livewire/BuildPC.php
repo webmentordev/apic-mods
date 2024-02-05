@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\AirCooler;
 use App\Models\Gpu;
 use App\Models\Memory;
 use App\Models\Socket;
@@ -11,11 +12,12 @@ use App\Models\Motherboard;
 use App\Models\Nvme;
 use App\Models\PcCase;
 use App\Models\Ssd;
+use App\Models\WaterCooler;
 
 class BuildPC extends Component
 {
 
-    public $items = [], $errors = [], $total_price = 0, $ram_count = 1, $nvme_count = 1, $ssd_count = 1;
+    public $items = [], $errors = [], $total_price = 0, $ram_count = 1, $nvme_count = 1, $ssd_count = 1, $coolertype;
 
     public $processor, 
     $motherboard, 
@@ -25,7 +27,13 @@ class BuildPC extends Component
     $gpu,
     $case, $cooler;
 
-    public $sockets, $memories, $motherboards, $cases;
+    public $sockets, $memories, $motherboards, $cases, $coolerslist;
+
+    public $coolers = [
+        "Air Cooler",
+        "Water Cooler",
+        "Custom PC Cooler"
+    ];
 
 
     public function rules(){
@@ -129,7 +137,36 @@ class BuildPC extends Component
         ];
         $this->calculator();
     }
-    
+
+
+    public function updatedcoolertype(){
+        if($this->coolertype == "Air Cooler"){
+            $this->coolerslist = AirCooler::all();
+        }elseif($this->coolertype == "Water Cooler"){
+            $this->coolerslist = WaterCooler::all();
+        }
+    }
+
+    public function updatedcooler(){
+        if($this->coolertype == "Air Cooler"){
+            $cooler = AirCooler::where('name', $this->cooler)->first();
+            $this->items['cooler'] = [
+                'name' => $cooler->name,
+                'price' => $cooler->price,
+                'image' => config('app.url').'/storage/'.$cooler->image
+            ];
+            $this->calculator();
+        }elseif($this->coolertype == "Water Cooler"){
+            $cooler = WaterCooler::where('name', $this->cooler)->first();
+            $this->items['cooler'] = [
+                'name' => $cooler->name,
+                'price' => $cooler->price,
+                'image' => config('app.url').'/storage/'.$cooler->image
+            ];
+            $this->calculator();
+        }
+    }
+
     public function calculator(){
         $price = 0;
         foreach($this->items as $key => $item){
@@ -189,6 +226,17 @@ class BuildPC extends Component
         unset($this->items['ssds'][$number]);
         $this->items['ssds'] = array_values($this->items['ssds']);
         $this->ssd_count = $this->ssd_count - 1;
+        $this->calculator();
+    }
+
+    public function removeCooler(){
+        $this->coolertype = null;
+        unset($this->items['cooler']);
+        $this->calculator();
+    }
+
+    public function removeSelectedCooler(){
+        unset($this->items['cooler']);
         $this->calculator();
     }
 
