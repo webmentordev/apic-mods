@@ -287,7 +287,7 @@
                         @endif
                     </div>
                     <div x-cloak x-transition x-show="open" class="w-full z-10 absolute top-12 rounded-md left-0 bg-dark-light p-2 text-white max-h-[200px] h-fit overflow-y-scroll">
-                        @foreach ($coolers as $item)
+                        @foreach ($cooler_types as $item)
                             <div wire:click="$set('coolertype', '{{ $item }}')" x-on:click="open=false" class="flex items-center cursor-pointer justify-between bg-dark-light rounded-lg mb-2 p-3">
                                 <p>{{ $item }}</p>
                             </div>
@@ -296,48 +296,32 @@
                 </div>
             </div>
 
-
             @if ($coolertype)
-                @if ($coolertype != "Custom PC Cooler")
-                    <div class="mb-7 w-full">
-                        <div class="flex items-center">
-                            <x-custom-label :value="__('Select your Cooler')" />
+                <div class="mb-7 w-full">
+                    <div class="w-full relative" x-data="{ open: false }">
+                        <div x-on:click="open=!open" class="w-full flex items-center justify-between rounded-sm py-3 px-3 bg-dark-light text-white cursor-pointer">
                             @if (isset($items['cooler']))
-                                <div class="flex items-center mb-3">
-                                    <img class="ml-2" src="https://api.iconify.design/ic:round-check-circle-outline.svg?color=%2326cf42" width="20">
-                                    <button wire:click='removeSelectedCooler' class="py-1 px-2 text-white bg-red-600 ml-1 inline-block text-sm rounded-md">Entfernen</button>
-                                </div>
+                                <p class="text-main">{{ $items['cooler']['name'] }}</p>
+                            @else
+                                <span>— Wählen Sie einen Cooler aus —</span><img src="https://api.iconify.design/bx:caret-down.svg?color=%237d7d7d" alt="Caret Down">
                             @endif
                         </div>
-                        <div class="w-full relative" x-data="{ open: false }">
-                            <div x-on:click="open=!open" class="w-full flex items-center justify-between rounded-sm py-3 px-3 bg-dark-light text-white cursor-pointer">
-                                @if (isset($items['cooler']))
-                                    <p class="text-main">{{ $items['cooler']['name'] }}</p>
-                                @else
-                                    <span>— Wählen Sie einen Cooler aus —</span><img src="https://api.iconify.design/bx:caret-down.svg?color=%237d7d7d" alt="Caret Down">
-                                @endif
-                            </div>
-                            <div x-cloak x-transition x-show="open" class="w-full z-10 absolute top-12 rounded-md left-0 bg-dark-light p-2 text-white max-h-[200px] h-fit overflow-y-scroll">
-                                @if (count($coolerslist))
-                                    @foreach ($coolerslist as $item)
-                                        <div wire:click="$set('cooler', '{{ $item->name }}')" x-on:click="open=false" class="flex items-center cursor-pointer justify-between bg-dark-light rounded-lg mb-2 p-3">
-                                            <div class="flex items-center">
-                                                <img src="{{ asset('/storage/'. $item->image) }}" class="max-w-[40px] mr-3 w-full" alt="">
-                                                <p>{{ substr($item->name, 0, 70) }}...</p>
-                                            </div>
-                                            <p class="text-main">€ {{ $item->price }}</p>
-                                        </div>
-                                    @endforeach
-                                @else
-                                    <p class="text-white">PC-Kühler dieser Art gibt es nicht</p>
-                                @endif
-                            </div>
+                        <div x-cloak x-transition x-show="open" class="w-full z-10 absolute top-12 rounded-md left-0 bg-dark-light p-2 text-white max-h-[200px] h-fit overflow-y-scroll">
+                            @foreach ($coolers as $item)
+                                <div wire:click="$set('cooler', '{{ $item->name }}')" x-on:click="open=false" class="flex items-center cursor-pointer justify-between bg-dark-light rounded-lg mb-2 p-3">
+                                    <div class="flex items-center">
+                                        <img src="{{ asset('/storage/'. $item->image) }}" class="max-w-[40px] mr-3 w-full" alt="">
+                                        <p>{{ substr($item->name, 0, 70) }}...</p>
+                                    </div>
+                                    <p class="text-main">€ {{ $item->price }}</p>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
-                @endif
+                </div>
             @endif
 
-            <div class="p-4 rounded-xl bg-white/10 text-white">
+            <div class="p-4 rounded-xl bg-white/10 text-white mt-[60px] inline-block w-full">
                 <h3 class="text-lg mb-3 beyonders">Zusammenfassung der Auswahl</h3>
                 @if (count($items))
                     <div class="flex flex-col w-full border-b border-white/20 mb-3">

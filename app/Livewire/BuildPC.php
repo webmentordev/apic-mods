@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\AirCooler;
+use App\Models\Cooler;
 use App\Models\Gpu;
 use App\Models\Memory;
 use App\Models\Socket;
@@ -27,9 +28,9 @@ class BuildPC extends Component
     $gpu,
     $case, $cooler;
 
-    public $sockets, $memories, $motherboards, $cases, $coolerslist;
+    public $sockets, $memories, $motherboards, $cases, $coolers;
 
-    public $coolers = [
+    public $cooler_types = [
         "Air Cooler",
         "Water Cooler",
         "Custom PC Cooler"
@@ -140,31 +141,18 @@ class BuildPC extends Component
 
 
     public function updatedcoolertype(){
-        if($this->coolertype == "Air Cooler"){
-            $this->coolerslist = AirCooler::all();
-        }elseif($this->coolertype == "Water Cooler"){
-            $this->coolerslist = WaterCooler::all();
-        }
+        unset($this->items['cooler']);
+        $this->coolers = Cooler::orWhere('type', $this->coolertype)->get();
     }
 
     public function updatedcooler(){
-        if($this->coolertype == "Air Cooler"){
-            $cooler = AirCooler::where('name', $this->cooler)->first();
-            $this->items['cooler'] = [
-                'name' => $cooler->name,
-                'price' => $cooler->price,
-                'image' => config('app.url').'/storage/'.$cooler->image
-            ];
-            $this->calculator();
-        }elseif($this->coolertype == "Water Cooler"){
-            $cooler = WaterCooler::where('name', $this->cooler)->first();
-            $this->items['cooler'] = [
-                'name' => $cooler->name,
-                'price' => $cooler->price,
-                'image' => config('app.url').'/storage/'.$cooler->image
-            ];
-            $this->calculator();
-        }
+        $cooler = Cooler::where('name', $this->cooler)->first();
+        $this->items['cooler'] = [
+            'name' => $cooler->name,
+            'price' => $cooler->price,
+            'image' => config('app.url').'/storage/'.$cooler->image
+        ];
+        $this->calculator();
     }
 
     public function calculator(){

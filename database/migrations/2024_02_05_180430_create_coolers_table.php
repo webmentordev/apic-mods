@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('water_coolers', function (Blueprint $table) {
+        Schema::create('coolers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('type');
+            $table->string('aio_type')->nullable();
             $table->decimal('price', 10, 2);
             $table->string('image');
             $table->boolean('is_active')->default(true);
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('water_coolers');
+        Schema::dropIfExists('coolers');
     }
 };

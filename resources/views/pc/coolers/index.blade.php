@@ -2,9 +2,9 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Air Coolers') }}
+                {{ __('Coolers') }}
             </h2>
-            <a href="{{ route('air.cooler.create') }}" class="py-2 px-4 bg-black text-white font-semibold">Add AIR COOLER</a>
+            <a href="{{ route('cooler.create') }}" class="py-2 px-4 bg-black text-white font-semibold">Add New Coolers</a>
         </div>
     </x-slot>
 
@@ -21,6 +21,8 @@
                                 <th class="text-start p-2">Image</th>
                                 <th class="text-start p-2">Name</th>
                                 <th class="text-start p-2">Price</th>
+                                <th class="text-start p-2">Type</th>
+                                <th class="text-start p-2">AIO</th>
                                 <th class="text-start p-2">Added</th>
                                 <th class="text-start p-2">Status</th>
                                 <th class="text-end p-2">Delete</th>
@@ -35,8 +37,16 @@
                                     </td>
                                     <td class="text-start p-2">{{ $item->name }}</td>
                                     <td class="text-start p-2 font-semibold">€{{ number_format($item->price, 2) }}</td>
+                                    <td class="text-start p-2">{{ $item->type }}</td>
+                                    <td class="text-start p-2">
+                                        @if ($item->aio_type)
+                                            {{ $item->aio_type }}
+                                        @else
+                                            <span class=""><del>NONE</del></span>
+                                        @endif
+                                    </td>
                                     <td class="text-start p-2">{{ $item->created_at->diffForHumans() }}</td>
-                                    <td class="text-start p-2"><form action="{{ route('air.cooler.status.update', $item->id) }}" method="post">
+                                    <td class="text-start p-2"><form action="{{ route('cooler.status.update', $item->id) }}" method="post">
                                         @csrf
                                         @method('PATCH')
                                         @if ($item->is_active)
@@ -56,7 +66,7 @@
                                         @endif
                                     </form></td>
                                     <td class="text-end p-2">
-                                        <form action="{{ route('air.cooler.delete', $item->id) }}" method="post" id="form">
+                                        <form action="{{ route('cooler.delete', $item->id) }}" method="post" id="form">
                                             @csrf
                                             @method('DELETE')
                                             <x-table-button class="bg-red-700 p-2 py-3">
@@ -68,7 +78,7 @@
                                         </form>
                                     </td>
                                     <td class="text-end p-2">
-                                        <a href="{{ route('update.air.cooler', $item->id) }}" class="underline text-indigo-600 cursor-pointer">Update</a>
+                                        <a href="{{ route('update.cooler', $item->id) }}" class="underline text-indigo-600 cursor-pointer">Update</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -81,7 +91,7 @@
                         @endif
                     </div>
                 @else
-                    <p class="py-4 text-center">AIR COOLER data does not exist!</p>
+                    <p class="py-4 text-center">Cooler data does not exist!</p>
                 @endif
             </div>
         </div>
@@ -89,7 +99,7 @@
             document.addEventListener('DOMContentLoaded', function () {
                 var form = document.getElementById('form');
                 form.addEventListener('submit', function (event) {
-                    var isConfirmed = confirm('Are you sure you want to delete this air cooler?');
+                    var isConfirmed = confirm('Are you sure you want to delete this cooler?');
                     if (!isConfirmed) {
                         event.preventDefault();
                     }

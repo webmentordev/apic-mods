@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AirCoolerController;
+use App\Http\Controllers\CoolerController;
 use App\Http\Controllers\BuildCategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GalleryController;
@@ -18,7 +18,6 @@ use App\Http\Controllers\SizeController;
 use App\Http\Controllers\SleeveController;
 use App\Http\Controllers\SocketController;
 use App\Http\Controllers\SsdController;
-use App\Http\Controllers\WaterCoolerController;
 use App\Livewire\BuildPC;
 use App\Livewire\Home;
 use Illuminate\Support\Facades\Route;
@@ -128,21 +127,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/pc-case/update/{pccase}', [PcCaseController::class, 'update'])->name('update.case');
     Route::patch('/pc-case/update/{pccase}', [PcCaseController::class, 'update_case'])->name('case.update');
 
-    Route::get('/air-cooler', [AirCoolerController::class, 'index'])->name('air.cooler');
-    Route::get('/air-cooler/create', [AirCoolerController::class, 'create'])->name('air.cooler.create');
-    Route::post('/air-cooler', [AirCoolerController::class, 'store']);
-    Route::PATCH('/air-cooler/update/status/{aircooler}', [AirCoolerController::class, 'active'])->name('air.cooler.status.update');
-    Route::delete('/air-cooler/delete/{aircooler}', [AirCoolerController::class, 'delete'])->name('air.cooler.delete');
-    Route::get('/air-cooler/update/{aircooler}', [AirCoolerController::class, 'update'])->name('update.air.cooler');
-    Route::patch('/air-cooler/update/{aircooler}', [AirCoolerController::class, 'update_aircooler'])->name('air.cooler.update');
-
-    Route::get('/water-cooler', [WaterCoolerController::class, 'index'])->name('water.cooler');
-    Route::get('/water-cooler/create', [WaterCoolerController::class, 'create'])->name('water.cooler.create');
-    Route::post('/water-cooler', [WaterCoolerController::class, 'store']);
-    Route::PATCH('/water-cooler/update/status/{watercooler}', [WaterCoolerController::class, 'active'])->name('water.cooler.status.update');
-    Route::delete('/water-cooler/delete/{watercooler}', [WaterCoolerController::class, 'delete'])->name('water.cooler.delete');
-    Route::get('/water-cooler/update/{watercooler}', [WaterCoolerController::class, 'update'])->name('update.water.cooler');
-    Route::patch('/water-cooler/update/{watercooler}', [WaterCoolerController::class, 'update_watercooler'])->name('water.cooler.update');
+    Route::get('/cooler', [CoolerController::class, 'index'])->name('cooler');
+    Route::get('/cooler/create', [CoolerController::class, 'create'])->name('cooler.create');
+    Route::post('/cooler', [CoolerController::class, 'store']);
+    Route::PATCH('/cooler/update/status/{cooler}', [CoolerController::class, 'active'])->name('cooler.status.update');
+    Route::delete('/cooler/delete/{cooler}', [CoolerController::class, 'delete'])->name('cooler.delete');
+    Route::get('/cooler/update/{cooler}', [CoolerController::class, 'update'])->name('update.cooler');
+    Route::patch('/cooler/update/{cooler}', [CoolerController::class, 'update_cooler'])->name('cooler.update');
 
     Route::get('/sleeve', [SleeveController::class, 'index'])->name('sleeve');
     Route::get('/sleeve/create', [SleeveController::class, 'create'])->name('sleeve.create');

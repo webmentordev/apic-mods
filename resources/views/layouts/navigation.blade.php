@@ -121,11 +121,8 @@
                             </button>
                         </x-slot>
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('air.cooler')">
-                                {{ __('Air Cooler') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link :href="route('water.cooler')">
-                                {{ __('Water Cooler') }}
+                            <x-dropdown-link :href="route('cooler')">
+                                {{ __('Coolers') }}
                             </x-dropdown-link>
                             <x-dropdown-link :href="route('sleeve')">
                                 {{ __('Sleeves') }}
