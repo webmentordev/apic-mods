@@ -3,6 +3,7 @@
 use App\Http\Controllers\CoolerController;
 use App\Http\Controllers\BuildCategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FanController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\GpuController;
 use App\Http\Controllers\MemoryController;
@@ -143,6 +144,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/sleeve/update/{sleeve}', [SleeveController::class, 'update'])->name('update.sleeve');
     Route::patch('/sleeve/update/{sleeve}', [SleeveController::class, 'update_watercooler'])->name('sleeve.update');
 
+    Route::get('/fan', [FanController::class, 'index'])->name('fan');
+    Route::get('/fan/create', [FanController::class, 'create'])->name('fan.create');
+    Route::post('/fan', [FanController::class, 'store']);
+    Route::PATCH('/fan/update/status/{fan}', [FanController::class, 'active'])->name('fan.status.update');
+    Route::delete('/fan/delete/{fan}', [FanController::class, 'delete'])->name('fan.delete');
+    Route::get('/fan/update/{fan}', [FanController::class, 'update'])->name('update.fan');
+    Route::patch('/fan/update/{fan}', [FanController::class, 'update_fan'])->name('fan.update');
 });
 
 require __DIR__.'/auth.php';

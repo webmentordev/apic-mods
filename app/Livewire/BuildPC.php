@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\AirCooler;
 use App\Models\Cooler;
+use App\Models\Fan;
 use App\Models\Gpu;
 use App\Models\Memory;
 use App\Models\Socket;
@@ -18,7 +19,7 @@ use App\Models\WaterCooler;
 class BuildPC extends Component
 {
 
-    public $items = [], $errors = [], $total_price = 0, $ram_count = 1, $nvme_count = 1, $ssd_count = 1, $coolertype;
+    public $items = [], $errors = [], $total_price = 0, $ram_count = 1, $nvme_count = 1, $ssd_count = 1, $coolertype = "";
 
     public $processor, 
     $motherboard, 
@@ -28,7 +29,9 @@ class BuildPC extends Component
     $gpu,
     $case, $cooler;
 
-    public $sockets, $memories, $motherboards, $cases, $coolers;
+    public $customtype, $customcover, $coolerfans, $coolercont, $extracool;
+
+    public $sockets, $memories, $motherboards, $cases;
 
     public $cooler_types = [
         "Air Cooler",
@@ -55,7 +58,9 @@ class BuildPC extends Component
             'processors' => Processor::latest()->with(['socket'])->get(),
             'nvmes' => Nvme::latest()->get(),
             'ssds' => Ssd::latest()->get(),
-            'gpus' => Gpu::latest()->get()
+            'gpus' => Gpu::latest()->get(),
+            'coolers' => Cooler::orWhere('type', $this->coolertype)->latest()->get(),
+            'fan' => Fan::latest()->first()
         ]);
     }
 
@@ -139,10 +144,10 @@ class BuildPC extends Component
         $this->calculator();
     }
 
-
     public function updatedcoolertype(){
         unset($this->items['cooler']);
-        $this->coolers = Cooler::orWhere('type', $this->coolertype)->get();
+        unset($this->items['fans']);
+        unset($this->items['extra']);
     }
 
     public function updatedcooler(){
@@ -151,6 +156,25 @@ class BuildPC extends Component
             'name' => $cooler->name,
             'price' => $cooler->price,
             'image' => config('app.url').'/storage/'.$cooler->image
+        ];
+        $this->calculator();
+    }
+
+
+    public function updatedcoolerfans(){
+        $fans = Fan::latest()->first();
+        $this->items['fans'] = [
+            'name' => 'Water Cooler: '.$fans->name,
+            'price' => $fans->price
+        ];
+        $this->calculator();
+    }
+
+    public function updatedextracool(){
+        $fans = Fan::latest()->first();
+        $this->items['extra'] = [
+            'name' => $fans->name,
+            'price' => $fans->price
         ];
         $this->calculator();
     }
@@ -218,7 +242,7 @@ class BuildPC extends Component
     }
 
     public function removeCooler(){
-        $this->coolertype = null;
+        $this->coolertype = "";
         unset($this->items['cooler']);
         $this->calculator();
     }

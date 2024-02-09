@@ -47,8 +47,9 @@
                             <x-select id="aio" class="block mt-1 w-full border-none rounded-lg bg-gray-100 p-3" 
                             name="aio">
                                 <option value="" selected>No AIO Type</option>
-                                <option value="Air Cooler">Air Cooler</option>
-                                <option value="Water Cooler">Water Cooler</option>
+                                <option value="120MM">120MM</option>
+                                <option value="360MM">360MM</option>
+                                <option value="240MM">240MM</option>
                             </x-select>
                             <x-input-error :messages="$errors->get('aio')" class="mt-2" />
                         </div>
