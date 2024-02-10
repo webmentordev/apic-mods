@@ -338,17 +338,17 @@
                         <p class="text-white">{{ $coolertype }} Kühler wurde nicht gefunden</p>
                     @endif
                 @else
-                    <x-select class="w-full mb-3" wire:model='customtype'>
+                    <x-select class="w-full mb-3" wire:model.live='customtype'>
                         <option value="Full Bitspower" selected>Full Bitspower Alphaool Water cooling</option>
                         <option value="Full Alphaool">Full Alphaool Water cooling</option>
                     </x-select>
 
-                    <x-select class="w-full mb-3" wire:model='customcover'>
+                    <x-select class="w-full mb-3" wire:model.live='customcover'>
                         <option value="CPU Only" selected>CPU Only</option>
                         <option value="Full">Full System</option>
                     </x-select>
 
-                    <x-select class="w-full mb-3" wire:model='coolerfans'>
+                    <x-select class="w-full mb-3" wire:model.live='coolerfans'>
                         <option value="" selected>No Fans €0</option>
                         <option value="Aqua">Aquacomputer Fans €{{ $fan->price }}</option>
                     </x-select>

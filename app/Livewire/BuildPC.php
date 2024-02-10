@@ -173,7 +173,7 @@ class BuildPC extends Component
     public function updatedextracool(){
         $fans = Fan::latest()->first();
         $this->items['extra'] = [
-            'name' => $fans->name,
+            'name' => 'Other Parts cooling: '.$fans->name,
             'price' => $fans->price
         ];
         $this->calculator();
@@ -244,6 +244,8 @@ class BuildPC extends Component
     public function removeCooler(){
         $this->coolertype = "";
         unset($this->items['cooler']);
+        unset($this->items['extra']);
+        unset($this->items['fans']);
         $this->calculator();
     }
 
