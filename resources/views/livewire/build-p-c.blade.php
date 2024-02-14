@@ -339,8 +339,13 @@
                     @endif
                 @else
                     <x-select class="w-full mb-3" wire:model.live='customtype'>
-                        <option value="Full Bitspower" selected>Full Bitspower Alphaool Water cooling</option>
-                        <option value="Full Alphaool">Full Alphaool Water cooling</option>
+                        @foreach ($loops as $item)
+                            @if ($loop->first)
+                                <option value="{{ $item->name }}" selected>{{ $item->name }} - €{{ $item->price }}</option>
+                            @else
+                                <option value="{{ $item->name }}">{{ $item->name }} - €{{ $item->price }}</option>
+                            @endif
+                        @endforeach
                     </x-select>
 
                     <x-select class="w-full mb-3" wire:model.live='customcover'>

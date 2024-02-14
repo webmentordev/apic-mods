@@ -124,6 +124,9 @@
                             <x-dropdown-link :href="route('cooler')">
                                 {{ __('Coolers') }}
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('loop')">
+                                {{ __('Loops') }}
+                            </x-dropdown-link>
                             <x-dropdown-link :href="route('fan')">
                                 {{ __('Aqua Fans') }}
                             </x-dropdown-link>

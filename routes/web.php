@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CoolerController;
 use App\Http\Controllers\BuildCategoryController;
+use App\Http\Controllers\CustomLoopController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FanController;
 use App\Http\Controllers\GalleryController;
@@ -151,6 +152,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/fan/delete/{fan}', [FanController::class, 'delete'])->name('fan.delete');
     Route::get('/fan/update/{fan}', [FanController::class, 'update'])->name('update.fan');
     Route::patch('/fan/update/{fan}', [FanController::class, 'update_fan'])->name('fan.update');
+
+    Route::get('/loop', [CustomLoopController::class, 'index'])->name('loop');
+    Route::get('/loop/create', [CustomLoopController::class, 'create'])->name('loop.create');
+    Route::post('/loop', [CustomLoopController::class, 'store']);
+    Route::PATCH('/loop/update/status/{loop}', [CustomLoopController::class, 'active'])->name('loop.status.update');
+    Route::delete('/loop/delete/{loop}', [CustomLoopController::class, 'delete'])->name('loop.delete');
+    Route::get('/loop/update/{loop}', [CustomLoopController::class, 'update'])->name('update.loop');
+    Route::patch('/loop/update/{loop}', [CustomLoopController::class, 'update_customloop'])->name('loop.update');
 });
 
 require __DIR__.'/auth.php';

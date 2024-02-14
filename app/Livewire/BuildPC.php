@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\AirCooler;
 use App\Models\Cooler;
+use App\Models\CustomLoop;
 use App\Models\Fan;
 use App\Models\Gpu;
 use App\Models\Memory;
@@ -60,7 +61,8 @@ class BuildPC extends Component
             'ssds' => Ssd::latest()->get(),
             'gpus' => Gpu::latest()->get(),
             'coolers' => Cooler::orWhere('type', $this->coolertype)->latest()->get(),
-            'fan' => Fan::latest()->first()
+            'fan' => Fan::latest()->first(),
+            'loops' => CustomLoop::latest()->get(),
         ]);
     }
 
@@ -146,6 +148,7 @@ class BuildPC extends Component
 
     public function updatedcoolertype(){
         unset($this->items['cooler']);
+        unset($this->items['loop']);
         unset($this->items['fans']);
         unset($this->items['extra']);
     }
@@ -160,6 +163,14 @@ class BuildPC extends Component
         $this->calculator();
     }
 
+    public function updatedcustomtype(){
+        $custom = CustomLoop::where('name', $this->customtype)->first();
+        $this->items['loop'] = [
+            'name' => $custom->name,
+            'price' => $custom->price
+        ];
+        $this->calculator();
+    }
 
     public function updatedcoolerfans(){
         $fans = Fan::latest()->first();
@@ -244,6 +255,7 @@ class BuildPC extends Component
     public function removeCooler(){
         $this->coolertype = "";
         unset($this->items['cooler']);
+        unset($this->items['loop']);
         unset($this->items['extra']);
         unset($this->items['fans']);
         $this->calculator();
