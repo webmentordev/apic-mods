@@ -1,28 +1,29 @@
 <?php
 
-use App\Http\Controllers\CoolerController;
-use App\Http\Controllers\BuildCategoryController;
-use App\Http\Controllers\CustomLoopController;
-use App\Http\Controllers\DashboardController;
+use App\Livewire\Home;
+use App\Livewire\BuildPC;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FanController;
-use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\GpuController;
-use App\Http\Controllers\MemoryController;
-use App\Http\Controllers\MemoryTypeController;
-use App\Http\Controllers\MotherboardController;
-use App\Http\Controllers\NvmeController;
-use App\Http\Controllers\PackageController;
-use App\Http\Controllers\PcCaseController;
-use App\Http\Controllers\ProcessorController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PsuController;
+use App\Http\Controllers\SsdController;
+use App\Http\Controllers\NvmeController;
 use App\Http\Controllers\SizeController;
+use App\Http\Controllers\CoolerController;
+use App\Http\Controllers\MemoryController;
+use App\Http\Controllers\PcCaseController;
 use App\Http\Controllers\SleeveController;
 use App\Http\Controllers\SocketController;
-use App\Http\Controllers\SsdController;
-use App\Livewire\BuildPC;
-use App\Livewire\Home;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\PackageController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProcessorController;
+use App\Http\Controllers\CustomLoopController;
+use App\Http\Controllers\MemoryTypeController;
+use App\Http\Controllers\CustomCoverController;
+use App\Http\Controllers\MotherboardController;
+use App\Http\Controllers\BuildCategoryController;
 
 Route::get('/', Home::class)->name('home');
 
@@ -160,6 +161,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/loop/delete/{loop}', [CustomLoopController::class, 'delete'])->name('loop.delete');
     Route::get('/loop/update/{loop}', [CustomLoopController::class, 'update'])->name('update.loop');
     Route::patch('/loop/update/{loop}', [CustomLoopController::class, 'update_customloop'])->name('loop.update');
+    
+    Route::get('/cover', [CustomCoverController::class, 'index'])->name('cover');
+    Route::get('/cover/create', [CustomCoverController::class, 'create'])->name('cover.create');
+    Route::post('/cover', [CustomCoverController::class, 'store']);
+    Route::PATCH('/cover/update/status/{cover}', [CustomCoverController::class, 'active'])->name('cover.status.update');
+    Route::delete('/cover/delete/{cover}', [CustomCoverController::class, 'delete'])->name('cover.delete');
+    Route::get('/cover/update/{cover}', [CustomCoverController::class, 'update'])->name('update.cover');
+    Route::patch('/cover/update/{cover}', [CustomCoverController::class, 'update_customcover'])->name('cover.update');
 });
 
 require __DIR__.'/auth.php';

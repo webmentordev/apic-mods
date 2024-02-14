@@ -1,6 +1,9 @@
 <section class="w-full px-4 py-[150px] bg-dark">
     <div class="max-w-3xl m-auto pb-[150px]">
         <h2 class="mb-12 lemon_m text-center text-4xl text-white 650px:text-4xl">BUILD YOUR <span class="text-main lemon_m">CUSTOM GAMING</span> PC</h2>
+        <div wire:loading>
+            <x-processing />
+        </div>
         <main class="w-full">
             <div class="mb-7 w-full">
                 <div class="flex items-center">
@@ -349,13 +352,18 @@
                     </x-select>
 
                     <x-select class="w-full mb-3" wire:model.live='customcover'>
-                        <option value="CPU Only" selected>CPU Only</option>
-                        <option value="Full">Full System</option>
+                        @foreach ($covers as $item)
+                            @if ($loop->first)
+                                <option value="{{ $item->name }}" selected>{{ $item->name }} - €{{ $item->price }}</option>
+                            @else
+                                <option value="{{ $item->name }}">{{ $item->name }} - €{{ $item->price }}</option>
+                            @endif
+                        @endforeach
                     </x-select>
 
                     <x-select class="w-full mb-3" wire:model.live='coolerfans'>
-                        <option value="" selected>No Fans €0</option>
-                        <option value="Aqua">Aquacomputer Fans €{{ $fan->price }}</option>
+                        <option value="" selected>No Fans - €0</option>
+                        <option value="Aqua">Aquacomputer Fans - €{{ $fan->price }}</option>
                     </x-select>
 
                     <x-select class="w-full mb-3" wire:model.live='coolercont'>

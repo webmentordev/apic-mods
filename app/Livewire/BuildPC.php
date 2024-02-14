@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\AirCooler;
 use App\Models\Cooler;
+use App\Models\CustomCover;
 use App\Models\CustomLoop;
 use App\Models\Fan;
 use App\Models\Gpu;
@@ -56,13 +57,14 @@ class BuildPC extends Component
     public function render()
     {
         return view('livewire.build-p-c', [
-            'processors' => Processor::latest()->with(['socket'])->get(),
-            'nvmes' => Nvme::latest()->get(),
-            'ssds' => Ssd::latest()->get(),
-            'gpus' => Gpu::latest()->get(),
+            'processors' => Processor::latest()->where('is_active', true)->with(['socket'])->get(),
+            'nvmes' => Nvme::latest()->where('is_active', true)->get(),
+            'ssds' => Ssd::latest()->where('is_active', true)->get(),
+            'gpus' => Gpu::latest()->where('is_active', true)->get(),
             'coolers' => Cooler::orWhere('type', $this->coolertype)->latest()->get(),
-            'fan' => Fan::latest()->first(),
-            'loops' => CustomLoop::latest()->get(),
+            'fan' => Fan::latest()->where('is_active', true)->first(),
+            'loops' => CustomLoop::where('is_active', true)->get(),
+            'covers' => CustomCover::where('is_active', true)->get()
         ]);
     }
 
