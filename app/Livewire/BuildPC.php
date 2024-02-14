@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\AirCooler;
 use App\Models\Cooler;
+use App\Models\CustomController;
 use App\Models\CustomCover;
 use App\Models\CustomLoop;
 use App\Models\Fan;
@@ -64,7 +65,8 @@ class BuildPC extends Component
             'coolers' => Cooler::orWhere('type', $this->coolertype)->latest()->get(),
             'fan' => Fan::latest()->where('is_active', true)->first(),
             'loops' => CustomLoop::where('is_active', true)->get(),
-            'covers' => CustomCover::where('is_active', true)->get()
+            'covers' => CustomCover::where('is_active', true)->get(),
+            'controllers' => CustomController::where('is_active', true)->get()
         ]);
     }
 
@@ -150,6 +152,8 @@ class BuildPC extends Component
 
     public function updatedcoolertype(){
         unset($this->items['cooler']);
+        unset($this->items['cover']);
+        unset($this->items['controller']);
         unset($this->items['loop']);
         unset($this->items['fans']);
         unset($this->items['extra']);
@@ -167,7 +171,31 @@ class BuildPC extends Component
 
     public function updatedcustomtype(){
         $custom = CustomLoop::where('name', $this->customtype)->first();
-        $this->items['loop'] = [
+        if($custom){
+            $this->items['loop'] = [
+                'name' => $custom->name,
+                'price' => $custom->price
+            ];
+            $this->calculator();
+        }else{
+            $this->customtype = null;
+            $this->calculator();
+            unset($this->items['loop']);
+        }
+    }
+
+    public function updatedcustomcover(){
+        $custom = CustomCover::where('name', $this->customcover)->first();
+        $this->items['cover'] = [
+            'name' => $custom->name,
+            'price' => $custom->price
+        ];
+        $this->calculator();
+    }
+
+    public function updatedcoolercont(){
+        $custom = CustomController::where('name', $this->coolercont)->first();
+        $this->items['controller'] = [
             'name' => $custom->name,
             'price' => $custom->price
         ];
@@ -175,21 +203,33 @@ class BuildPC extends Component
     }
 
     public function updatedcoolerfans(){
-        $fans = Fan::latest()->first();
-        $this->items['fans'] = [
-            'name' => 'Water Cooler: '.$fans->name,
-            'price' => $fans->price
-        ];
-        $this->calculator();
+        $fans = Fan::where('name', $this->coolerfans)->first();
+        if($fans){
+            $this->items['fans'] = [
+                'name' => 'Water Cooler: '.$fans->name,
+                'price' => $fans->price
+            ];
+            $this->calculator();
+        }else{
+            $this->calculator();
+            $this->coolerfans = null;
+            unset($this->items['fans']);
+        }
     }
 
     public function updatedextracool(){
-        $fans = Fan::latest()->first();
-        $this->items['extra'] = [
-            'name' => 'Other Parts cooling: '.$fans->name,
-            'price' => $fans->price
-        ];
-        $this->calculator();
+        $fans = Fan::where('name', $this->extracool)->first();
+        if($fans){
+            $this->items['extra'] = [
+                'name' => 'Other Parts cooling: '.$fans->name,
+                'price' => $fans->price
+            ];
+            $this->calculator();
+        }else{
+            $this->calculator();
+            $this->extracool = null;
+            unset($this->items['extra']);
+        }
     }
 
     public function calculator(){
@@ -237,6 +277,7 @@ class BuildPC extends Component
 
     public function removeGPU(){
         unset($this->items['gpu']);
+        $this->ssd = null;
         $this->calculator();
     }
 
@@ -244,6 +285,8 @@ class BuildPC extends Component
         unset($this->items['processor']);
         unset($this->items['motherboard']);
         unset($this->items['ram']);
+        $this->motherboard = null;
+        $this->processor = null;
         $this->calculator();
     }
 
@@ -257,6 +300,8 @@ class BuildPC extends Component
     public function removeCooler(){
         $this->coolertype = "";
         unset($this->items['cooler']);
+        unset($this->items['cover']);
+        unset($this->items['controller']);
         unset($this->items['loop']);
         unset($this->items['extra']);
         unset($this->items['fans']);

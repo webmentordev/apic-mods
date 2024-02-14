@@ -21,7 +21,7 @@ class PsuController extends Controller
     public function store(Request $request){
         $this->validate($request, [
             'name' => 'required|string|max:255|unique:psus,name',
-            'price' => 'required|numeric|min:1',
+            'price' => 'required|numeric',
             'power' => 'required|numeric|min:1',
             'image' => 'required|image|mimes:png,jpg,webp,jpeg'
         ]);
@@ -54,7 +54,7 @@ class PsuController extends Controller
     public function update_psu(Request $request, Psu $psu){
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'price' => 'required|string|max:255',
+            'price' => 'required|numeric',
             'image' => 'nullable|image|mimes:png,jpg,webp,jpeg',
             'power' => 'required|numeric'
         ]);

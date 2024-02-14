@@ -29,7 +29,7 @@ class MotherboardController extends Controller
         $this->validate($request, [
             'image' => 'required|image|mimes:png,jpg,webp,jpeg',
             'name' => 'required|string',
-            'price' => 'required|numeric|min:1',
+            'price' => 'required|numeric',
             'socket' => 'required|numeric|min:1',
             'size' => 'required|numeric|min:1',
             'type' => 'required|numeric|min:1',
@@ -71,7 +71,7 @@ class MotherboardController extends Controller
     public function update_motherboard(Request $request, Motherboard $motherboard){
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'price' => 'required|string|max:255',
+            'price' => 'required|numeric',
             'image' => 'nullable|image|mimes:png,jpg,webp,jpeg',
             'socket' => 'required|numeric|min:1',
             'size' => 'required|numeric|min:1',

@@ -21,7 +21,7 @@ class CustomLoopController extends Controller
     public function store(Request $request){
         $this->validate($request, [
             'name' => 'required|string|max:255|unique:custom_loops,name',
-            'price' => 'required|numeric|min:1'
+            'price' => 'required|numeric'
         ]);
         CustomLoop::create([
             'name' => $request->name,
@@ -50,7 +50,7 @@ class CustomLoopController extends Controller
     public function update_customloop(Request $request, CustomLoop $loop){
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'price' => 'required|string|max:255'
+            'price' => 'required|numeric'
         ]);
         $loop->update(array_filter([
             'name' => $request->name,

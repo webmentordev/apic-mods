@@ -342,38 +342,40 @@
                     @endif
                 @else
                     <x-select class="w-full mb-3" wire:model.live='customtype'>
+                        <option value="" selected>— Select the custom loop —</option>
                         @foreach ($loops as $item)
-                            @if ($loop->first)
-                                <option value="{{ $item->name }}" selected>{{ $item->name }} - €{{ $item->price }}</option>
-                            @else
-                                <option value="{{ $item->name }}">{{ $item->name }} - €{{ $item->price }}</option>
-                            @endif
+                            <option value="{{ $item->name }}">{{ $item->name }} - €{{ number_format($item->price, 2) }}</option>
                         @endforeach
                     </x-select>
 
                     <x-select class="w-full mb-3" wire:model.live='customcover'>
                         @foreach ($covers as $item)
                             @if ($loop->first)
-                                <option value="{{ $item->name }}" selected>{{ $item->name }} - €{{ $item->price }}</option>
+                                <option value="{{ $item->name }}" selected>{{ $item->name }} - €{{ number_format($item->price, 2) }}</option>
                             @else
-                                <option value="{{ $item->name }}">{{ $item->name }} - €{{ $item->price }}</option>
+                                <option value="{{ $item->name }}">{{ $item->name }} - €{{ number_format($item->price, 2) }}</option>
                             @endif
                         @endforeach
                     </x-select>
 
                     <x-select class="w-full mb-3" wire:model.live='coolerfans'>
                         <option value="" selected>No Fans - €0</option>
-                        <option value="Aqua">Aquacomputer Fans - €{{ $fan->price }}</option>
+                        <option value="{{ $fan->name }}">Aquacomputer Fans - €{{ number_format($fan->price, 2) }}</option>
                     </x-select>
 
                     <x-select class="w-full mb-3" wire:model.live='coolercont'>
-                        <option value="" selected>No Cooling Controller</option>
-                        <option value="controoler">Cooling Controller</option>
+                        @foreach ($controllers as $item)
+                            @if ($loop->first)
+                                <option value="{{ $item->name }}" selected>{{ $item->name }} - €{{ number_format($item->price, 2) }}</option>
+                            @else
+                                <option value="{{ $item->name }}">{{ $item->name }} - €{{ number_format($item->price, 2) }}</option>
+                            @endif
+                        @endforeach
                     </x-select>
 
                     <x-select class="w-full" wire:model.live='extracool'>
                         <option value="" selected>No Other parts cooling €0</option>
-                        <option value="yes">Other parts cooling €{{ $fan->price }}</option>
+                        <option value="{{ $fan->name }}">Other parts cooling €{{ number_format($fan->price, 2) }}</option>
                     </x-select>
                 @endif
             @endif
@@ -390,7 +392,7 @@
                                             <img src="{{ $nvme['image'] }}" class="max-w-[40px]">
                                             <p class="ml-2 w-full">{{ $nvme['name'] }}</p>
                                         </div>
-                                        <span class="text-main max-w-[100px] text-end w-full">€ {{ $nvme['price'] }}</span>
+                                        <span class="text-main max-w-[100px] text-end w-full">€ {{ number_format($nvme['price'], 2) }}</span>
                                     </div>
                                 @endforeach
                             @elseif ($key == "ssds")
@@ -400,7 +402,7 @@
                                             <img src="{{ $ssd['image'] }}" class="max-w-[40px]">
                                             <p class="ml-2 w-full">{{ $ssd['name'] }}</p>
                                         </div>
-                                        <span class="text-main max-w-[100px] text-end w-full">€ {{ $ssd['price'] }}</span>
+                                        <span class="text-main max-w-[100px] text-end w-full">€ {{ number_format($ssd['price'], 2) }}</span>
                                     </div>
                                 @endforeach
                             @else
@@ -411,7 +413,7 @@
                                         @endif
                                         <p class="ml-2 w-full">{{ $item['name'] }}</p>
                                     </div>
-                                    <span class="text-main max-w-[100px] text-end w-full">€ {{ $item['price'] }}</span>
+                                    <span class="text-main max-w-[100px] text-end w-full">€ {{ number_format($item['price'], 2) }}</span>
                                 </div>
                             @endif
                         @endforeach

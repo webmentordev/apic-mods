@@ -54,7 +54,7 @@ class GpuController extends Controller
     public function update_gpu(Request $request, Gpu $gpu){
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'price' => 'required|string|max:255',
+            'price' => 'required|numeric',
             'image' => 'nullable|image|mimes:png,jpg,webp,jpeg',
             'power' => 'required|numeric'
         ]);

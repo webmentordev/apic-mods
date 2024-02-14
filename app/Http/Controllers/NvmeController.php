@@ -21,7 +21,7 @@ class NvmeController extends Controller
     public function store(Request $request){
         $this->validate($request, [
             'name' => 'required|string|max:255|unique:nvmes,name',
-            'price' => 'required|numeric|min:1',
+            'price' => 'required|numeric',
             'image' => 'required|image|mimes:png,jpg,webp,jpeg'
         ]);
         Nvme::create([
@@ -52,7 +52,7 @@ class NvmeController extends Controller
     public function update_nvme(Request $request, Nvme $nvme){
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'price' => 'required|string|max:255',
+            'price' => 'required|numeric',
             'image' => 'nullable|image|mimes:png,jpg,webp,jpeg'
         ]);
         $image = null;

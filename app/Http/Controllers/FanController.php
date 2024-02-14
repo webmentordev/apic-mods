@@ -21,7 +21,7 @@ class FanController extends Controller
     public function store(Request $request){
         $this->validate($request, [
             'name' => 'required|string|max:255|unique:fans,name',
-            'price' => 'required|numeric|min:1'
+            'price' => 'required|numeric'
         ]);
         Fan::create([
             'name' => $request->name,
@@ -50,7 +50,7 @@ class FanController extends Controller
     public function update_fan(Request $request, Fan $fan){
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'price' => 'required|string|max:255'
+            'price' => 'required|numeric'
         ]);
         $fan->update(array_filter([
             'name' => $request->name,

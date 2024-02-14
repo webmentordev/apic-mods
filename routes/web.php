@@ -24,6 +24,7 @@ use App\Http\Controllers\MemoryTypeController;
 use App\Http\Controllers\CustomCoverController;
 use App\Http\Controllers\MotherboardController;
 use App\Http\Controllers\BuildCategoryController;
+use App\Http\Controllers\CustomControllerController;
 
 Route::get('/', Home::class)->name('home');
 
@@ -162,6 +163,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/loop/update/{loop}', [CustomLoopController::class, 'update'])->name('update.loop');
     Route::patch('/loop/update/{loop}', [CustomLoopController::class, 'update_customloop'])->name('loop.update');
     
+    Route::get('/controller', [CustomControllerController::class, 'index'])->name('controller');
+    Route::get('/controller/create', [CustomControllerController::class, 'create'])->name('controller.create');
+    Route::post('/controller', [CustomControllerController::class, 'store']);
+    Route::PATCH('/controller/update/status/{controller}', [CustomControllerController::class, 'active'])->name('controller.status.update');
+    Route::delete('/controller/delete/{controller}', [CustomControllerController::class, 'delete'])->name('controller.delete');
+    Route::get('/controller/update/{controller}', [CustomControllerController::class, 'update'])->name('update.controller');
+    Route::patch('/controller/update/{controller}', [CustomControllerController::class, 'update_customcontroller'])->name('controller.update');
+
     Route::get('/cover', [CustomCoverController::class, 'index'])->name('cover');
     Route::get('/cover/create', [CustomCoverController::class, 'create'])->name('cover.create');
     Route::post('/cover', [CustomCoverController::class, 'store']);

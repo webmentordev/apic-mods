@@ -20,7 +20,7 @@ class CustomCoverController extends Controller
     public function store(Request $request){
         $this->validate($request, [
             'name' => 'required|string|max:255|unique:custom_covers,name',
-            'price' => 'required|numeric|min:1'
+            'price' => 'required|numeric'
         ]);
         CustomCover::create([
             'name' => $request->name,
@@ -49,7 +49,7 @@ class CustomCoverController extends Controller
     public function update_customcover(Request $request, CustomCover $cover){
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'price' => 'required|string|max:255'
+            'price' => 'required|numeric'
         ]);
         $cover->update(array_filter([
             'name' => $request->name,

@@ -130,6 +130,9 @@
                             <x-dropdown-link :href="route('cover')">
                                 {{ __('Covers') }}
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('controller')">
+                                {{ __('Controller') }}
+                            </x-dropdown-link>
                             <x-dropdown-link :href="route('fan')">
                                 {{ __('Aqua Fans') }}
                             </x-dropdown-link>

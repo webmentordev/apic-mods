@@ -21,7 +21,7 @@ class SleeveController extends Controller
     public function store(Request $request){
         $this->validate($request, [
             'name' => 'required|string|max:255|unique:sleeves,name',
-            'price' => 'required|numeric|min:1',
+            'price' => 'required|numeric',
             'image' => 'nullable|image|mimes:png,jpg,webp,jpeg'
         ]);
         $image = null;
@@ -56,7 +56,7 @@ class SleeveController extends Controller
     public function update_watercooler(Request $request, Sleeve $sleeve){
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'price' => 'required|string|max:255',
+            'price' => 'required|numeric',
             'image' => 'nullable|image|mimes:png,jpg,webp,jpeg'
         ]);
 

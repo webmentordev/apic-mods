@@ -27,7 +27,7 @@ class ProcessorController extends Controller
         $this->validate($request, [
             'image' => 'required|image|mimes:png,jpg,webp,jpeg',
             'name' => 'required|string',
-            'price' => 'required|numeric|min:1',
+            'price' => 'required|numeric',
             'socket' => 'required|numeric'
         ]);
         Processor::create([
@@ -62,7 +62,7 @@ class ProcessorController extends Controller
     public function update_processor(Request $request, Processor $processor){
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'price' => 'required|string|max:255',
+            'price' => 'required|numeric',
             'image' => 'nullable|image|mimes:png,jpg,webp,jpeg',
             'socket' => 'required|numeric',
         ]);

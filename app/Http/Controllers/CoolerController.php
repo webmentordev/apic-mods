@@ -56,7 +56,7 @@ class CoolerController extends Controller
     public function update_cooler(Request $request, Cooler $cooler){
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'price' => 'required|string|max:255',
+            'price' => 'required|numeric',
             'type' => 'required|string|max:255',
             'aio' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:png,jpg,webp,jpeg'

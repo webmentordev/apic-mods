@@ -54,7 +54,7 @@ class MemoryController extends Controller
     public function update_memory(Request $request, Memory $memory){
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'price' => 'required|string|max:255',
+            'price' => 'required|numeric',
             'image' => 'nullable|image|mimes:png,jpg,webp,jpeg',
             'memory' => 'required|numeric|min:1'
         ]);

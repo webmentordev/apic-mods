@@ -58,7 +58,7 @@ class PcCaseController extends Controller
     public function update_case(Request $request, PcCase $pccase){
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'price' => 'required|string|max:255',
+            'price' => 'required|numeric',
             'image' => 'nullable|image|mimes:png,jpg,webp,jpeg',
             'size' => 'required|numeric'
         ]);

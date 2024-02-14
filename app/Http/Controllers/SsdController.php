@@ -21,7 +21,7 @@ class SsdController extends Controller
     public function store(Request $request){
         $this->validate($request, [
             'name' => 'required|string|max:255|unique:ssds,name',
-            'price' => 'required|numeric|min:1',
+            'price' => 'required|numeric',
             'image' => 'required|image|mimes:png,jpg,webp,jpeg'
         ]);
         Ssd::create([
@@ -52,7 +52,7 @@ class SsdController extends Controller
     public function update_ssd(Request $request, Ssd $ssd){
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'price' => 'required|string|max:255',
+            'price' => 'required|numeric',
             'image' => 'nullable|image|mimes:png,jpg,webp,jpeg'
         ]);
         $image = null;
