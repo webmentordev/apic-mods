@@ -87,6 +87,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/memory', [MemoryController::class, 'index'])->name('memory');
     Route::get('/memory/create', [MemoryController::class, 'create'])->name('memory.create');
     Route::post('/memory', [MemoryController::class, 'store']);
+    Route::PATCH('/memory/update/status/{memory}', [MemoryController::class, 'active'])->name('memory.status.update');
     Route::delete('/memory/delete/{memory}', [MemoryController::class, 'delete'])->name('memory.delete');
     Route::get('/memory/update/{memory}', [MemoryController::class, 'update'])->name('update.memory');
     Route::patch('/memory/update/{memory}', [MemoryController::class, 'update_memory'])->name('memory.update');

@@ -17,6 +17,7 @@ class Order extends Model
         'ssds',
         'gpu',
         'case',
+        'psu',
         'cooler',
         'total',
         'type',

@@ -14,6 +14,7 @@ class Memory extends Model
         'name',
         'price',
         'image',
+        'is_active',
         'memory_type_id'
     ];
 

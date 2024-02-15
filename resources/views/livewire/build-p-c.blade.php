@@ -245,6 +245,40 @@
             </div>
 
 
+            <div class="mb-7 w-full">
+                <div class="flex items-center">
+                    <x-custom-label :value="__('PSU')" />
+                    @if (isset($items['psu']))
+                        <div class="flex items-center mb-3">
+                            <img class="ml-2" src="https://api.iconify.design/ic:round-check-circle-outline.svg?color=%2326cf42" width="20">
+                            <button wire:click='removePSU' class="py-1 px-2 text-white bg-red-600 ml-1 inline-block text-sm rounded-md">Entfernen</button>
+                        </div>
+                    @endif
+                </div>
+                <div class="w-full relative" x-data="{ open: false }">
+                    <div x-on:click="open=!open" class="w-full flex items-center justify-between rounded-sm py-3 px-3 bg-dark-light text-white cursor-pointer">
+                        @if (isset($items['psu']))
+                            <p class="text-main">{{ $items['psu']['name'] }}</p>
+                        @else
+                            <span>— Wählen Sie einen PSU aus —</span><img src="https://api.iconify.design/bx:caret-down.svg?color=%237d7d7d" alt="Caret Down">
+                        @endif
+                    </div>
+                    <div x-cloak x-transition x-show="open" class="w-full z-10 absolute top-12 rounded-md left-0 bg-dark-light p-2 text-white max-h-[200px] h-fit overflow-y-scroll">
+                        @foreach ($psus as $item)
+                            <div wire:click="$set('psu', '{{ $item->name }}')" x-on:click="open=false" class="flex items-center cursor-pointer justify-between bg-dark-light rounded-lg mb-2 p-3">
+                                <div class="flex items-center">
+                                    <img src="{{ asset('/storage/'. $item->image) }}" class="max-w-[40px] mr-3 w-full" alt="">
+                                    <p>{{ substr($item->name, 0, 70) }}...</p>
+                                </div>
+                                <p class="text-main">€ {{ number_format($item->price, 2) }}</p>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                <x-input-error :messages="$errors->get('psu')" class="mt-2" />
+            </div>
+
+
             @if ($motherboard)
                 <div class="mb-7 w-full">
                     <div class="flex items-center">

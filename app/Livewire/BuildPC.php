@@ -17,6 +17,7 @@ use App\Models\Motherboard;
 use App\Models\Nvme;
 use App\Models\Order;
 use App\Models\PcCase;
+use App\Models\Psu;
 use App\Models\Ssd;
 use App\Models\WaterCooler;
 
@@ -31,6 +32,7 @@ class BuildPC extends Component
     $nvme,
     $ssd,
     $gpu,
+    $psu,
     $case, $cooler;
 
     public $customtype, $customcover, $coolerfans, $coolercont, $extracool;
@@ -73,7 +75,8 @@ class BuildPC extends Component
             'fan' => Fan::latest()->where('is_active', true)->first(),
             'loops' => CustomLoop::where('is_active', true)->get(),
             'covers' => CustomCover::where('is_active', true)->get(),
-            'controllers' => CustomController::where('is_active', true)->get()
+            'controllers' => CustomController::where('is_active', true)->get(),
+            'psus' => Psu::where('is_active', true)->get()
         ]);
     }
 
@@ -90,7 +93,7 @@ class BuildPC extends Component
     }
 
     public function updatedprocessor(){
-        $processor = Processor::where('name', $this->processor)->first();
+        $processor = Processor::where('name', $this->processor)->where('is_active', true)->first();
         $this->sockets = Socket::where('id', $processor->socket_id)->first();
         $this->items['processor'] = [
             'name' => $processor->name,
@@ -102,8 +105,8 @@ class BuildPC extends Component
     }
 
     public function updatedmotherboard(){
-        $motherboard = Motherboard::where('name', $this->motherboard)->with(['size'])->first();
-        $this->memories = Memory::where('memory_type_id', $motherboard->memory_type_id)->get();
+        $motherboard = Motherboard::where('name', $this->motherboard)->with(['size'])->where('is_active', true)->first();
+        $this->memories = Memory::where('memory_type_id', $motherboard->memory_type_id)->where('is_active', true)->get();
         $this->cases = PcCase::get();
         $this->items['motherboard'] = [
             'name' => $motherboard->name,
@@ -117,7 +120,7 @@ class BuildPC extends Component
     }
 
     public function updatedram(){
-        $ram = Memory::where('name', $this->ram)->first();
+        $ram = Memory::where('name', $this->ram)->where('is_active', true)->first();
         $this->items['ram'] = [
             'name' => $ram->name,
             'price' => $ram->price,
@@ -128,7 +131,7 @@ class BuildPC extends Component
     }
 
     public function updatedcase(){
-        $case = PcCase::where('name', $this->case)->with(['size'])->first();
+        $case = PcCase::where('name', $this->case)->where('is_active', true)->with(['size'])->first();
         $this->items['case'] = [
             'name' => $case->name,
             'price' => $case->price,
@@ -139,7 +142,7 @@ class BuildPC extends Component
     }
 
     public function addNvmeToArray($number, $nvme){
-        $nvme = Nvme::where('name', $nvme)->first();
+        $nvme = Nvme::where('name', $nvme)->where('is_active', true)->first();
         $this->items['nvmes'][$number] = [
             'name' => $nvme->name,
             'price' => $nvme->price,
@@ -149,7 +152,7 @@ class BuildPC extends Component
     }
 
     public function addSsdToArray($number, $ssd){
-        $ssd = Ssd::where('name', $ssd)->first();
+        $ssd = Ssd::where('name', $ssd)->where('is_active', true)->first();
         $this->items['ssds'][$number] = [
             'name' => $ssd->name,
             'price' => $ssd->price,
@@ -159,7 +162,7 @@ class BuildPC extends Component
     }
 
     public function updatedgpu(){
-        $gpu = Gpu::where('name', $this->gpu)->first();
+        $gpu = Gpu::where('name', $this->gpu)->where('is_active', true)->first();
         $this->items['gpu'] = [
             'name' => $gpu->name,
             'price' => $gpu->price,
@@ -179,7 +182,7 @@ class BuildPC extends Component
     }
 
     public function updatedcooler(){
-        $cooler = Cooler::where('name', $this->cooler)->first();
+        $cooler = Cooler::where('name', $this->cooler)->where('is_active', true)->first();
         $this->items['cooler'] = [
             'name' => $cooler->name,
             'price' => $cooler->price,
@@ -188,8 +191,19 @@ class BuildPC extends Component
         $this->calculator();
     }
 
+    public function updatedpsu(){
+        $psu = Psu::where('name', $this->psu)->where('is_active', true)->first();
+        $this->items['psu'] = [
+            'name' => $psu->name,
+            'price' => $psu->price,
+            'power' => $psu->power,
+            'image' => config('app.url').'/storage/'.$psu->image
+        ];
+        $this->calculator();
+    }
+
     public function updatedcustomtype(){
-        $custom = CustomLoop::where('name', $this->customtype)->first();
+        $custom = CustomLoop::where('name', $this->customtype)->where('is_active', true)->first();
         if($custom){
             $this->items['loop'] = [
                 'name' => $custom->name,
@@ -204,7 +218,7 @@ class BuildPC extends Component
     }
 
     public function updatedcustomcover(){
-        $custom = CustomCover::where('name', $this->customcover)->first();
+        $custom = CustomCover::where('name', $this->customcover)->where('is_active', true)->first();
         $this->items['cover'] = [
             'name' => $custom->name,
             'price' => $custom->price
@@ -213,7 +227,7 @@ class BuildPC extends Component
     }
 
     public function updatedcoolercont(){
-        $custom = CustomController::where('name', $this->coolercont)->first();
+        $custom = CustomController::where('name', $this->coolercont)->where('is_active', true)->first();
         $this->items['controller'] = [
             'name' => $custom->name,
             'price' => $custom->price
@@ -222,7 +236,7 @@ class BuildPC extends Component
     }
 
     public function updatedcoolerfans(){
-        $fans = Fan::where('name', $this->coolerfans)->first();
+        $fans = Fan::where('name', $this->coolerfans)->where('is_active', true)->first();
         if($fans){
             $this->items['fans'] = [
                 'name' => 'Water Cooler: '.$fans->name,
@@ -237,7 +251,7 @@ class BuildPC extends Component
     }
 
     public function updatedextracool(){
-        $fans = Fan::where('name', $this->extracool)->first();
+        $fans = Fan::where('name', $this->extracool)->where('is_active', true)->first();
         if($fans){
             $this->items['extra'] = [
                 'name' => 'Other Parts cooling: '.$fans->name,
@@ -284,6 +298,12 @@ class BuildPC extends Component
     public function removeNVMES(){
         unset($this->items['nvmes']);
         $this->nvme_count = 1;
+        $this->calculator();
+    }
+
+    public function removePSU(){
+        unset($this->items['psu']);
+        $this->psu = null;
         $this->calculator();
     }
 
@@ -351,11 +371,14 @@ class BuildPC extends Component
         if($this->items['motherboard']['size'] > $this->items['case']['size']){
             array_push($this->customErrors, "Motherboard is too big for the casing!");
         }
+        if($this->items['gpu']['power'] > $this->items['psu']['power']){
+            array_push($this->customErrors, "GPU require bigger power supply!");
+        }
     }
 
 
     public function checkout(){
-        $this->validate();
+        // $this->validate();
         $this->compatibility();
         if(count($this->customErrors) == 0){
             Order::create([
@@ -375,7 +398,8 @@ class BuildPC extends Component
                 'extra' => $this->extracool,
                 'name' => $this->name,
                 'contact' => $this->contact,
-                'message' => $this->message
+                'message' => $this->message,
+                'psu' => $this->psu
             ]);
             session()->flash('success', 'Order has been placed!');
             $this->reset();

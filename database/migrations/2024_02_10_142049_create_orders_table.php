@@ -20,6 +20,7 @@ return new class extends Migration
             $table->json('ssds');
             $table->text('gpu');
             $table->text('case');
+            $table->text('psu');
             $table->text('cooler');
             $table->decimal('total', 10, 2);
             $table->text('type')->nullable();

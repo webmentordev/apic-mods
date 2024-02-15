@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->decimal('price', 10, 2);
             $table->string('image');
+            $table->boolean('is_active')->default(true);
             $table->foreignId('memory_type_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

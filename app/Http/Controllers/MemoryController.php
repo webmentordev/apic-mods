@@ -38,6 +38,12 @@ class MemoryController extends Controller
         return back()->with('success', 'Memory has been Added');
     }
 
+    public function active(Memory $memory){
+        $memory->is_active = !$memory->is_active;
+        $memory->save();
+        return back()->with('success', 'Memory status has been updated');
+    }
+
     public function delete(Memory $memory){
         $memory->delete();
         return back()->with('success', 'Memory has been deleted');

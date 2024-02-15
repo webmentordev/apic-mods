@@ -20,6 +20,7 @@
                                 <th class="text-start p-2">Price</th>
                                 <th class="text-start p-2">Type</th>
                                 <th class="text-start p-2">Added</th>
+                                <th class="text-start p-2">Status</th>
                                 <th class="text-end p-2">Delete</th>
                                 <th class="text-end p-2">Update</th>
                             </tr>
@@ -34,6 +35,25 @@
                                     <td class="text-start p-2 font-semibold">€{{ number_format($memory->price, 2) }}</td>
                                     <td class="text-start p-2">{{ $memory->memory_type->name }}</td>
                                     <td class="text-start p-2">{{ $memory->created_at->diffForHumans() }}</td>
+                                    <td class="text-start p-2"><form action="{{ route('memory.status.update', $memory->id) }}" method="post">
+                                        @csrf
+                                        @method('PATCH')
+                                        @if ($memory->is_active)
+                                            <x-table-button class="bg-green-700 py-3">
+                                                <div class="flex items-center">
+                                                    <img src="https://api.iconify.design/ic:baseline-check-circle.svg?color=%23ffffff" alt="Active">
+                                                    <span class="ml-2">Active</span>
+                                                </div>
+                                            </x-table-button>
+                                        @else
+                                            <x-table-button class="bg-red-700 py-3">
+                                                <div class="flex items-center">
+                                                    <img src="https://api.iconify.design/charm:circle-cross.svg?color=%23ffffff" alt="Deactive">
+                                                    <span class="ml-2">InActive</span>
+                                                </div>
+                                            </x-table-button>
+                                        @endif
+                                    </form></td>
                                     <td class="text-end p-2">
                                         <form action="{{ route('memory.delete', $memory->id) }}" method="post" id="form">
                                             @csrf
