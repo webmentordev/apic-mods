@@ -15,6 +15,7 @@ use Livewire\Component;
 use App\Models\Processor;
 use App\Models\Motherboard;
 use App\Models\Nvme;
+use App\Models\Order;
 use App\Models\PcCase;
 use App\Models\Ssd;
 use App\Models\WaterCooler;
@@ -22,7 +23,7 @@ use App\Models\WaterCooler;
 class BuildPC extends Component
 {
 
-    public $items = [], $errors = [], $total_price = 0, $ram_count = 1, $nvme_count = 1, $ssd_count = 1, $coolertype = "";
+    public $items = [], $customErrors = [], $total_price = 0, $ram_count = 1, $nvme_count = 1, $ssd_count = 1, $coolertype = "", $name, $contact, $message;
 
     public $processor, 
     $motherboard, 
@@ -48,11 +49,17 @@ class BuildPC extends Component
             "processor" => 'required',
             "motherboard" => 'required',
             "ram" => 'required',
-            "nvme" => 'required',
-            "ssd" => 'required',
             "case" => 'required',
-            "cooler" => 'required'
+            "gpu" => 'required',
+            "cooler" => 'required',
+            'name' => 'required|string|max:255',
+            'contact' => 'required|numeric',
+            'message' => 'required',
         ];
+    }
+
+    public function updated(){
+        $this->validate();
     }
 
     public function render()
@@ -95,13 +102,14 @@ class BuildPC extends Component
     }
 
     public function updatedmotherboard(){
-        $motherboard = Motherboard::where('name', $this->motherboard)->first();
+        $motherboard = Motherboard::where('name', $this->motherboard)->with(['size'])->first();
         $this->memories = Memory::where('memory_type_id', $motherboard->memory_type_id)->get();
         $this->cases = PcCase::get();
         $this->items['motherboard'] = [
             'name' => $motherboard->name,
             'price' => $motherboard->price,
             'socket' => $motherboard->socket_id,
+            'size' => $motherboard->size->number,
             'type' => $motherboard->memory_type_id,
             'image' => config('app.url').'/storage/'.$motherboard->image
         ];
@@ -115,6 +123,17 @@ class BuildPC extends Component
             'price' => $ram->price,
             'type' => $ram->memory_type_id,
             'image' => config('app.url').'/storage/'.$ram->image
+        ];
+        $this->calculator();
+    }
+
+    public function updatedcase(){
+        $case = PcCase::where('name', $this->case)->with(['size'])->first();
+        $this->items['case'] = [
+            'name' => $case->name,
+            'price' => $case->price,
+            'size' => $case->size->number,
+            'image' => config('app.url').'/storage/'.$case->image
         ];
         $this->calculator();
     }
@@ -256,6 +275,12 @@ class BuildPC extends Component
         $this->calculator();
     }
 
+    public function removeCase(){
+        unset($this->items['case']);
+        $this->case = null;
+        $this->calculator();
+    }
+
     public function removeNVMES(){
         unset($this->items['nvmes']);
         $this->nvme_count = 1;
@@ -285,8 +310,10 @@ class BuildPC extends Component
         unset($this->items['processor']);
         unset($this->items['motherboard']);
         unset($this->items['ram']);
+        unset($this->items['case']);
         $this->motherboard = null;
         $this->processor = null;
+        $this->case = null;
         $this->calculator();
     }
 
@@ -314,12 +341,44 @@ class BuildPC extends Component
     }
 
     public function compatibility(){
+        $this->customErrors = [];
         if($this->items['motherboard']['socket'] != $this->items['processor']['socket']){
-            array_push($this->errors, "Motherboard and Processor are not compatible");
+            array_push($this->customErrors, "Motherboard and Processor are not compatible");
         }
+        if($this->items['motherboard']['type'] != $this->items['ram']['type']){
+            array_push($this->customErrors, "Motherboard and RAM(s) are not compatible");
+        }
+        if($this->items['motherboard']['size'] > $this->items['case']['size']){
+            array_push($this->customErrors, "Motherboard is too big for the casing!");
+        }
+    }
 
-        if($this->items['motherboard']['type'] != $this->items['processor']['type']){
-            array_push($this->errors, "Motherboard and RAM(s) are not compatible");
+
+    public function checkout(){
+        $this->validate();
+        $this->compatibility();
+        if(count($this->customErrors) == 0){
+            Order::create([
+                'processor' => $this->processor,
+                'motherboard' => $this->motherboard,
+                'ram' => $this->ram,
+                'nvmes' => json_encode($this->items['nvmes']),
+                'ssds' => json_encode($this->items['ssds']),
+                'gpu' => $this->gpu,
+                'case' => $this->case,
+                'cooler' => $this->cooler,
+                'total' => $this->total_price,
+                'type' => $this->customtype,
+                'cover' => $this->customcover,
+                'fans' => $this->coolerfans,
+                'cont' => $this->coolercont,
+                'extra' => $this->extracool,
+                'name' => $this->name,
+                'contact' => $this->contact,
+                'message' => $this->message
+            ]);
+            session()->flash('success', 'Order has been placed!');
+            $this->reset();
         }
     }
 }

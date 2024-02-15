@@ -23,6 +23,9 @@ class Order extends Model
         'cover',
         'fans',
         'cont',
-        'extra'
+        'extra',
+        'name',
+        'contact',
+        'message',
     ];
 }

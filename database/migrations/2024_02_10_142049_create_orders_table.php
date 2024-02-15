@@ -16,8 +16,8 @@ return new class extends Migration
             $table->text('processor');
             $table->text('motherboard');
             $table->text('ram');
-            $table->text('nvmes');
-            $table->text('ssds');
+            $table->json('nvmes');
+            $table->json('ssds');
             $table->text('gpu');
             $table->text('case');
             $table->text('cooler');
@@ -27,6 +27,9 @@ return new class extends Migration
             $table->text('fans')->nullable();
             $table->text('cont')->nullable();
             $table->text('extra')->nullable();
+            $table->string('name');
+            $table->string('contact');
+            $table->text('message')->nullable();
             $table->timestamps();
         });
     }

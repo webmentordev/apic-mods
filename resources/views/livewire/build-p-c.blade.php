@@ -4,6 +4,9 @@
         <div wire:loading>
             <x-processing />
         </div>
+        @if (session('success'))
+            <x-success-card text="Order has been placed. Thank you!" />
+        @endif
         <main class="w-full">
             <div class="mb-7 w-full">
                 <div class="flex items-center">
@@ -34,6 +37,7 @@
                             </div>
                         @endforeach
                     </div>
+                    <x-input-error :messages="$errors->get('processor')" class="mt-2" />
                 </div>
             </div>
             @if ($processor)
@@ -64,6 +68,7 @@
                                     </div>
                                 @endforeach
                             </div>
+                            <x-input-error :messages="$errors->get('motherboard')" class="mt-2" />
                         </div>
                     @else
                         <p class="text-white">Motherboards für den Prozessor gibt es nicht!</p>
@@ -101,6 +106,7 @@
                                         </div>
                                     @endforeach
                                 </div>
+                                <x-input-error :messages="$errors->get('ram')" class="mt-2" />
                             </div>
                         @else
                             <p class="text-white">Motherboards für den memory gibt es nicht!</p>
@@ -148,6 +154,7 @@
                                     </div>
                                 @endforeach
                             </div>
+                            <x-input-error :messages="$errors->get('nvme')" class="mt-2" />
                         </div>
                     @endfor
                 @else
@@ -191,10 +198,11 @@
                                             <img src="{{ asset('/storage/'. $item->image) }}" class="max-w-[40px] mr-3 w-full" alt="">
                                             <p>{{ substr($item->name, 0, 70) }}...</p>
                                         </div>
-                                        <p class="text-main">€ {{ $item->price }}</p>
+                                        <p class="text-main">€ {{ number_format($item->price, 2) }}</p>
                                     </div>
                                 @endforeach
                             </div>
+                            <x-input-error :messages="$errors->get('ssd')" class="mt-2" />
                         </div>
                     @endfor
                 @else
@@ -228,11 +236,12 @@
                                     <img src="{{ asset('/storage/'. $item->image) }}" class="max-w-[40px] mr-3 w-full" alt="">
                                     <p>{{ substr($item->name, 0, 70) }}...</p>
                                 </div>
-                                <p class="text-main">€ {{ $item->price }}</p>
+                                <p class="text-main">€ {{ number_format($item->price, 2) }}</p>
                             </div>
                         @endforeach
                     </div>
                 </div>
+                <x-input-error :messages="$errors->get('gpu')" class="mt-2" />
             </div>
 
 
@@ -267,6 +276,7 @@
                             @endforeach
                         </div>
                     </div>
+                    <x-input-error :messages="$errors->get('case')" class="mt-2" />
                 </div>
             @endif
 
@@ -290,7 +300,7 @@
                                 <span>— Wählen Sie einen Kühlertyp —</span><img src="https://api.iconify.design/bx:caret-down.svg?color=%237d7d7d" alt="Caret Down">
                             @endif
                         </div>
-                        <div x-cloak x-transition x-show="open" class="w-full z-10 absolute top-12 rounded-md left-0 bg-dark-light p-2 text-white max-h-[200px] h-fit overflow-y-scroll">
+                        <div x-cloak x-transition x-show="open" class="w-full z-10 mb-3 absolute top-12 rounded-md left-0 bg-dark-light p-2 text-white max-h-[200px] h-fit overflow-y-scroll">
                             @foreach ($cooler_types as $item)
                                 <div wire:click="$set('coolertype', '{{ $item }}')" x-on:click="open=false" class="flex items-center cursor-pointer justify-between bg-dark-light rounded-lg mb-2 p-3">
                                     <p>{{ $item }}</p>
@@ -336,6 +346,7 @@
                                     </div>
                                 @endforeach
                             </div>
+                            <x-input-error :messages="$errors->get('cooler')" class="mt-2" />
                         </div>
                     @else
                         <p class="text-white">{{ $coolertype }} Kühler wurde nicht gefunden</p>
@@ -379,6 +390,26 @@
                     </x-select>
                 @endif
             @endif
+
+            <div class="w-full mb-3 mt-3">
+                <x-custom-label for="name" :value="__('Full Name')" />
+                <x-custom-input id="name" class="block mt-1 p-3 w-full" type="name" wire:model='name' required autocomplete="off" />
+                <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            </div>
+
+            <div class="w-full mb-3">
+                <x-custom-label for="contact" :value="__('Contact Number')" />
+                <x-custom-input id="contact" class="block mt-1 p-3 w-full" type="number" wire:model='contact' required autocomplete="off" />
+                <x-input-error :messages="$errors->get('contact')" class="mt-2" />
+            </div>
+
+            <div class="w-full mb-3">
+                <x-custom-label for="message" :value="__('Message')" />
+                <x-text-area id="message" class="block mt-1 p-3 w-full" rows="7" wire:model='message' required autocomplete="off" />
+                <x-input-error :messages="$errors->get('message')" class="mt-2" />
+            </div>
+
+            <button wire:click='checkout' class="py-3 px-4 bg-main text-dark font-semibold">Checkout Now</button>
 
             <div class="p-4 rounded-xl bg-white/10 text-white mt-[60px] inline-block w-full">
                 <h3 class="text-lg mb-3 beyonders">Zusammenfassung der Auswahl</h3>
@@ -429,9 +460,16 @@
         </main>
         {{-- <h3 class="bg-black text-white fixed bottom-3 left-3 z-10 text-3xl p-2 px-4">€ {{ number_format($total_price, 2) }}</h3> --}}
     
-        @if (count($errors))
+        @if (count($customErrors))
             <div class="fixed left-2 bottom-2 bg-red-600/30 border max-w-[300px] w-full border-red-600 rounded-lg z-20 p-6">
-
+                <ul class="text-white">
+                    @foreach ($customErrors as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                    @foreach ($errors as $single)
+                        <li>{{ $single }}</li>
+                    @endforeach
+                </ul>
             </div>
         @endif
     
