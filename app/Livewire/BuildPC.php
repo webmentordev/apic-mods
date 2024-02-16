@@ -363,22 +363,22 @@ class BuildPC extends Component
     public function compatibility(){
         $this->customErrors = [];
         if($this->items['motherboard']['socket'] != $this->items['processor']['socket']){
-            array_push($this->customErrors, "Motherboard and Processor are not compatible");
+            array_push($this->customErrors, "Motherboard und Prozessor sind nicht kompatibel");
         }
         if($this->items['motherboard']['type'] != $this->items['ram']['type']){
-            array_push($this->customErrors, "Motherboard and RAM(s) are not compatible");
+            array_push($this->customErrors, "Motherboard und RAM(s) sind nicht kompatibel");
         }
         if($this->items['motherboard']['size'] > $this->items['case']['size']){
-            array_push($this->customErrors, "Motherboard is too big for the casing!");
+            array_push($this->customErrors, "Mainboard ist zu groß für das Gehäuse!");
         }
         if($this->items['gpu']['power'] > $this->items['psu']['power']){
-            array_push($this->customErrors, "GPU require bigger power supply!");
+            array_push($this->customErrors, "GPU benötigt größeres Netzteil!");
         }
     }
 
 
     public function checkout(){
-        // $this->validate();
+        $this->validate();
         $this->compatibility();
         if(count($this->customErrors) == 0){
             Order::create([
@@ -401,7 +401,7 @@ class BuildPC extends Component
                 'message' => $this->message,
                 'psu' => $this->psu
             ]);
-            session()->flash('success', 'Order has been placed!');
+            session()->flash('success', 'Die Bestellung wurde aufgegeben!');
             $this->reset();
         }
     }
