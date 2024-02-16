@@ -71,10 +71,6 @@ html{
     font-family: 'Space Grotesk', sans-serif;
 }
 
-.links a{
-    @apply text-dark text-[10px] transition-all beyonders;
-}
-
-.links a:hover{
-    @apply  text-main;
+p{
+    font-family: "Space Grotesk", sans-serif;
 }

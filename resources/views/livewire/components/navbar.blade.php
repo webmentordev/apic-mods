@@ -1,11 +1,11 @@
-<nav class="fixed top-3 left-0 w-full z-50 530px:px-4">
-    <div class="max-w-7xl m-auto px-4 py-2 rounded-full flex items-center justify-between bg-white">
+<nav class="fixed top-0 left-0 w-full z-50 530px:px-4 bg-white">
+    <div class="max-w-[95%] m-auto px-4 py-2 flex items-center justify-between">
         <a href="{{ route('home') }}" class="flex items-center">
             <img src="https://cdn.discordapp.com/attachments/649926592700743681/1198592559744827482/Asset_33x.png" title="Apic ModMode Logo" alt="Apic Mods Logo" width="200px">
             {{-- <img class="ml-3" src="{{ asset('images/apic_text.png') }}" title="Apic Mods Text" alt="Apic Mods Text" width="70px"> --}}
         </a>
-        <ul class="flex items-center links 530px:hidden">
-            <a href="#" class="ml-9">Home</a>
+        <ul class="flex items-center font-semibold links 530px:hidden">
+            <a href="{{ route('home') }}" class="ml-9">Home</a>
             <a href="{{ route('home') }}#builds" class="ml-9">Builds</a>
             <a href="#contact" class="ml-9">Contact</a>
             @auth
@@ -14,7 +14,7 @@
             <a href="https://www.facebook.com/APIC.PaYFrog.Modmode" target="_blank" title="APIC Mods Facebook" class="ml-6">
                 <img width="35" src="https://api.iconify.design/ri:facebook-circle-fill.svg?color=%23316FF6" title="APIC Mods Facebook" alt="Facebook Logo">
             </a>
-            <a href="{{ route('build.pc') }}" class="py-3 rounded-r-2xl px-4 bg-main hover:text-dark text-dark ml-9">Build Your PC</a>
+            <a href="{{ route('build.pc') }}" class="py-3 px-4 bg-main hover:text-dark text-dark ml-9">Build Your PC</a>
         </ul>
         <div class="relative hidden 530px:block" x-data="{ open: false}">
             <img src="https://api.iconify.design/charm:menu-hamburger.svg?color=%23363636" width="30" alt="Expand Icon" x-on:click="open = !open">
